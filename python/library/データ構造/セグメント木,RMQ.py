@@ -10,8 +10,8 @@
 """
 
 #####segfunc######
-#def segfunc(x,y):
-#    return 
+def segfunc(x,y):
+    return 
 
 
 def init(init_val):
@@ -48,7 +48,8 @@ def query(p,q):
     else:
         res = segfunc(segfunc(res,seg[p]),seg[q])
     return res
-
+n=int(input())
+a=list(map(int,input().split()))
 #####単位元######
 ide_ele = 0 #変える
 num =2**(n-1).bit_length()

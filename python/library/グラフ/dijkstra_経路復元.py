@@ -5,6 +5,7 @@ n,m = map(int,input().split())
 
 es=[[] for _ in range(n)] # es[i] = (頂点iの(隣接する頂点,コスト)の組)
 d = [INF]*n # 頂点sからの最短距離
+prev=[-1]*n # 経路復元
 
 # 入力
 for i in range(m):
@@ -28,5 +29,13 @@ def dijkstra(s):
             if d[e[0]] > d[v] + e[1]:
                 d[e[0]] = d[v] + e[1]
                 heappush(que, (d[e[0]], e[0])) 
+                prev[e[0]] = v
+def get_path(t):
+    path = []
+    while t != -1:
+        path.append(t)
+        t = prev[t]
+    path.reverse()
+    return path
 # dijkstra(0)
 # print(d)

@@ -18,7 +18,7 @@ from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import dijkstra
 
 n, m = map(int, input().split())
-edge = np.array([input().split() for _ in range(m)], dtype = np.int64).T
+edge = np.array([input().split() for _ in range(m)], dtype = np.int64)
 graph = csr_matrix((edge[2], (edge[:2] - 1)), (n, n))
 x = int(input())
 
