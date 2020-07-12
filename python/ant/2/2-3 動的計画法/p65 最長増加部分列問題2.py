@@ -7,16 +7,15 @@
 0<=ai<=1000000
 """
 
-import math,bisect
+from bisect import bisect_left
 n=int(input())
 a=list(map(int,input().split()))
 
-
-
-dp=[math.inf for i in range(n)]
+INF=10**18
+dp=[INF for i in range(n)]
 for i in range(n):
-    lower_index=bisect.bisect_left(dp,a[i])
-    print(lower_index)
+    lower_index=bisect_left(dp,a[i])
+    # print(lower_index)
     dp[lower_index]=a[i]
-print(bisect.bisect_left(dp,math.inf))
+print(bisect_left(dp,INF))
 #print(dp)
