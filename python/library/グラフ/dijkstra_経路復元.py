@@ -1,23 +1,24 @@
 from heapq import heappush,heapify,heappop
-INF = 10**10
 
-n,m = map(int,input().split())
+n, m = map(int, input().split())
 
 es=[[] for _ in range(n)] # es[i] = (頂点iの(隣接する頂点,コスト)の組)
-d = [INF]*n # 頂点sからの最短距離
-prev=[-1]*n # 経路復元
+
 
 # 入力
 for i in range(m):
-    a,b,c = map(int,input().split())
-    a,b = a-1, b-1
-    es[a].append((b,c))
-    es[b].append((a,c)) # 無向グラフ
+    a, b, c = map(int, input().split())
+    a, b = a - 1, b - 1
+    es[a].append((b, c))
+    es[b].append((a, c))  # 無向グラフ
 
 
 def dijkstra(s):
+    prev = [-1] * n  # 経路復元
+    INF = 10 ** 10
+    d = [INF] * n  # 頂点sからの最短距離
     v = -1
-    que = [(0,s)]
+    que = [(0, s)]
     heapify(que)
     d[s] = 0
     while que:
@@ -30,7 +31,8 @@ def dijkstra(s):
                 d[e[0]] = d[v] + e[1]
                 heappush(que, (d[e[0]], e[0])) 
                 prev[e[0]] = v
-def get_path(t):
+    return d, prev
+def get_path(t, prev):
     path = []
     while t != -1:
         path.append(t)

@@ -63,23 +63,7 @@ class ModInt:
             ModInt(pow(other.x, self.x, MOD)) if isinstance(other, ModInt) else
             ModInt(pow(other, self.x, MOD))
         )
-def framod(n, mod, a=1):
-    for i in range(1,n+1):
-        a=a * i % mod
-    return a
 
-def pow(n, r, mod):
-    if r == 0: return 1
-    if r%2 == 0:
-        return pow(n*n % mod, r//2, mod) % mod
-    if r%2 == 1:
-        return n * pow(n, r-1, mod) % mod
-
-def com(n, k, mod):
-    a=framod(n, mod)
-    b=framod(k, mod)
-    c=framod(n-k, mod)
-    return (a * pow(b, mod-2, mod) * pow(c, mod-2, mod)) % mod
 
 """
 使い方
