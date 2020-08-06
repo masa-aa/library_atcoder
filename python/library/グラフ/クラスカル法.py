@@ -32,14 +32,14 @@ class UnionFind():
    def Count(self, x):
        return -self.root[self.Find_Root(x)]
 
-def krascal():
-    h=UnionFind(n)
-    d.sort(key=lambda x:x[2])
+def krascal(n, D):
+    h = UnionFind(n)
+    D.sort(key=lambda x: x[2])
     cnt = 0
-    for i in d:
-        if not h.isSameGroup(i[0],i[1]):
-            h.Unite(i[0],i[1])
-            cnt += i[2]
+    for x, y, c in D:
+        if not h.isSameGroup(x, y):
+            h.Unite(x, y)
+            cnt += c
     return cnt
 
 
@@ -47,5 +47,5 @@ def krascal():
 n=7
 d=[[0, 1, 3], [1, 2, 2], [2, 3, 60], [3, 4, 3], [4, 5, 7], [5, 6, 9],  [2, 6, 100], [5,6,100]] 
 
-print(krascal())
+print(krascal(n,d))
 # >>> 84

@@ -12,7 +12,7 @@ for i in range(m):
 
 
 def dijkstra(s):
-    INF = 10 ** 10
+    INF = 1 << 32
     d = [INF] * n  # 頂点sからの最短距離
     v = -1
     que = [(0,s)]

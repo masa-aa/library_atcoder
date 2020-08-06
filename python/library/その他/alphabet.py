@@ -1,7 +1,7 @@
 # k文字ずらす
-c=input()
-k=int(input())
+c = input()
+k = int(input())
 chr(ord(c) + k)
 
-#アルファベット生成
-al=[chr(ord('a') + i) for i in range(26)]
+# アルファベット生成
+al = [chr(ord('a') + i) for i in range(26)]
