@@ -1,4 +1,4 @@
-# aabbabccc -> ababcにする 出力はlist
+# aabbabccc -> abcにする 出力はlist
 
 # Python 3.7から順序関係が保証される
 def get_different(s):
@@ -7,4 +7,4 @@ def get_different(s):
 
 
 
-# print(get_different("aabbabccc"))
+print(get_different("aabbabccc"))
