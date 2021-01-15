@@ -1,3 +1,4 @@
+# 人から借りてきている
 class Binary_Indexed_Tree:
     def __init__(self, n):
         """
