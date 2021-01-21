@@ -17,10 +17,10 @@ def debug(*a):
             a = a[0]
             print(" {} = {}".format(get_var_name(a), a))
         else:
-            a = list(a)
-            for val in a:
+            for val in iter(a):
                 print(" {} = {}".format(get_var_name(val), val))
     print("-" * 50)
+
 
 
 if __name__ == '__main__':
