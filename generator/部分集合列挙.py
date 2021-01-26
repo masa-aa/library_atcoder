@@ -7,7 +7,7 @@ def combs(n):
     while comb:
         yield comb
         comb = (comb - 1) & n
-    yield 0  # 空集合を含めるとき
+    # yield 0  # 空集合を含めるとき
 
 
 if __name__ == "__main__":
