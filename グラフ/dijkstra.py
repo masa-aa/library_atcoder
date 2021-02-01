@@ -1,28 +1,28 @@
-# issue divmodのmodを小さくする
 from heapq import heappush, heapify, heappop
 
 
-def dijkstra(start: "始点", V: "頂点数", es: "隣接リスト", INF=10000000000):
-    # INF = 10**10 毎回チェックしよう
+def dijkstra(es: "隣接リスト", start: "始点", INF=2000000000000000):
+    # INF = 2 * 10**15 (> 10**6 * 10**9)
+    V = len(es)
     d = [INF] * V  # 頂点sからの最短距離
-    que = [start]
+    que = [(0, start)]
     d[start] = 0
     while que:
-        dv, v = divmod(heappop(que), INF)
+        dv, v = heappop(que)
         if d[v] < dv:
             continue
         for e, de in es[v]:
             if d[e] > d[v] + de:
                 d[e] = d[v] + de
-                heappush(que, d[e] * INF + e)
+                heappush(que, (d[e], e))
     return d
 
 
 n, m = map(int, input().split())
 es = [[] for _ in range(n)]  # es[i] = (頂点iの(隣接する頂点,コスト)の組)
 # 入力
-for i in range(m):
-    a, b, c = map(int, input().split())
-    a, b = a - 1, b - 1
-    es[a].append((b, c))
-    es[b].append((a, c))  # 無向グラフ
+for _ in range(m):
+    start, end, distance = map(int, input().split())
+    start, end = start - 1, end - 1
+    es[start].append((end, distance))
+    es[end].append((start, distance))  # 無向グラフ
