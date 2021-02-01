@@ -10,10 +10,3 @@ def k_combs(n, k):
         x = comb & -comb
         y = comb + x
         comb = ((comb & ~y) // x >> 1) | y
-<<<<<<< Updated upstream
-=======
-
-
-for v in k_combs(13, 2):
-    print(v)
->>>>>>> Stashed changes
