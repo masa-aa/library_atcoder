@@ -1,19 +1,20 @@
 from collections import deque
 
 
-def shortest_path_bfs(start: "始点", V: "頂点数", es: "隣接リスト", INF=10000000000):
-    # INF = 10**10 毎回チェックしよう
-    prev = [-1] * n  # 経路復元
-    d = [INF] * n  # 頂点sからの最短距離
-    deq = deque()
-    deq.append(start)
+def shortest_path_bfs(es: "隣接リスト", start: "始点"):
+    V = len(es)
+    INF = 1_000_000_000
+    prev = [-1] * V  # 経路復元
+    d = [INF] * V  # 頂点startからの最短距離
+    que = deque()
+    que.append(start)
     d[start] = 0
-    while deq:
-        v = deq.popleft()
+    while que:
+        v = que.popleft()
         for e in es[v]:
             if d[e] == INF:
                 d[e] = d[v] + 1
-                deq.append(e)
+                que.append(e)
                 prev[e] = v
 
     return d, prev
