@@ -39,7 +39,6 @@ class SegmentTree:
         """op(a[l], ..., a[r - 1])"""
         l += self.size; r += self.size
         s = self.e
-        # 区間を列挙しながら最小値などをを求める
         while l < r:
             if r & 1:
                 r -= 1
