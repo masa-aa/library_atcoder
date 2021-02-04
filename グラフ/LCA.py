@@ -1,83 +1,78 @@
-"""
-根付き木に対し, その2頂点u,vの共通の祖先で最も近い所にあるものを
-uとvのLCA(Lowest Common Ancedtor,共通最小祖先)と言う.
-"""
-# O((N + Q)log(n))解法 #N=10**6 としておく.
-
-# 入力はすべて1-index
 import sys
-sys.setrecursionlimit(1000000000)
+sys.setrecursionlimit(10000000)
 input = sys.stdin.readline
-n = int(input())  # 頂点数
-root = int(input()) - 1  # 根ノードの番号
-es = [[] for i in range(n)]  # 隣接リスト
-parent = [[-1] * n for i in range(21)]  # 親を2^k回辿って到達する頂点 (根を通り過ぎる場合は-1とする)
-# floor(log2(10^k)) の値は以下の通り
-# [(4, 14), (5, 17), (6, 20), (7, 24), (8, 27), (9, 30)]
-depth = [0] * n  # 根からの深さ
-
-for i in range(n - 1):
-    a, b = map(int, input().split())
-    es[a - 1].append(b - 1)
-    es[b - 1].append(a - 1)
-
-# depthとparentを確定させる.
 
 
-def dfs(v, p, d):
-    parent[0][v] = p
-    depth[v] = d
-    for i in es[v]:
-        if i - p:
-            dfs(i, v, d + 1)
+class LowestCommonAncestor:
+    def __init__(self, G: "隣接リスト", root: "根"):
+        self.n = len(G)
+        self.tour = [0] * (2 * self.n - 1)
+        self.depth_list = [0] * (2 * self.n - 1)
+        self.id = [0] * self.n
+        self.visit_id = 0
+        self._dfs(G, root, -1, 0)
+        self._rmq_init(self.depth_list)
 
-
-def init():
-    # parent[0]とdepthを初期化する
-    dfs(root, -1, 0)
-    # parent を初期化する(ダブリング法)
-    for k in range(20):
-        for v in range(n):
-            if parent[k][v] < 0:
-                parent[k + 1][v] = -1
+    def _rmq_init(self, arr):
+        n = len(arr)
+        self.N0 = 1 << (n - 1).bit_length()
+        self.dat = [self.n] * (self.N0 - 1) + arr + [self.n] * (self.N0 - n + 1)
+        self.index = [0] * (self.N0 - 1) + list(range(n)) + [0] * (self.N0 - n + 1)
+        dat = self.dat
+        index = self.index
+        for i in range(self.N0 - 2, -1, -1):
+            if dat[2 * i + 1] > dat[2 * i + 2]:
+                dat[i] = dat[2 * i + 2]
+                index[i] = index[2 * i + 2]
             else:
-                parent[k + 1][v] = parent[k][parent[k][v]]
+                dat[i] = dat[2 * i + 1]
+                index[i] = index[2 * i + 1]
 
+    def _rmq_query(self, l, r):
+        """最小値となるindexを返す"""
+        l += self.N0; r += self.N0
+        s = self.n
+        dat = self.dat
+        index = self.index
+        while l < r:
+            if r & 1:
+                r -= 1
+                if s > dat[r - 1]:
+                    s = dat[r - 1]
+                    res = index[r - 1]
+            if l & 1:
+                if s > dat[l - 1]:
+                    s = dat[l - 1]
+                    res = index[l - 1]
+                l += 1
+            l >>= 1
+            r >>= 1
+        return res
 
-def lca(u, v):
-    if depth[u] > depth[v]:
-        u, v = v, u
-    # uとvの深さを合わせる
-    for k in range(21):
-        if (depth[v] - depth[u]) >> k & 1:
-            v = parent[k][v]
-    if u == v:
-        return u
-    # 二分探索でLCAを求める.
-    for k in range(20, -1, -1):
-        if parent[k][u] - parent[k][v]:
-            u, v = parent[k][u], parent[k][v]  # 違ったら一気にショートカット
-    return parent[0][u]
+    def _dfs(self, G, vertex, parent, depth):
+        self.id[vertex] = self.visit_id
+        self.tour[self.visit_id] = vertex
+        self.depth_list[self.visit_id] = depth
+        self.visit_id += 1
+        for element in G[vertex]:
+            if element != parent:
+                self._dfs(G, element, vertex, depth + 1)
+                self.tour[self.visit_id] = vertex
+                self.depth_list[self.visit_id] = depth
+                self.visit_id += 1
 
+    def lca(self, u: int, v: int) -> int:
+        """ u と v の最小共通祖先を返す."""
+        l, r = self.id[u], self.id[v]
+        if r < l:
+            l, r = r, l
+        q = self._rmq_query(l, r + 1)
+        return self.tour[q]
 
-init()
-q = int(input())
-for i in range(q):
-    u, v = map(int, input().split())
-    print(lca(u - 1, v - 1) + 1)
-
-"""
-8
-1
-1 2
-1 3
-2 4
-2 5
-5 7
-8 5
-3 6
-3
-4 7
-8 6
-5 8
-"""
+    def dist(self, u: int, v: int) -> int:
+        """ u と v の距離を返す"""
+        lca = self.lca(u, v)
+        depth_u = self.depth_list[self.id[u]]
+        depth_v = self.depth_list[self.id[v]]
+        depth_lca = self.depth_list[self.id[lca]]
+        return depth_u + depth_v - 2 * depth_lca
