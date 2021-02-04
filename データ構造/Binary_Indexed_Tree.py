@@ -55,8 +55,10 @@ class Binary_Indexed_Tree:
         return pos, sum_
 
     def __getitem__(self, i):
-        """ [a0, a1, a2, ...] """
         return self.get(i, i + 1)
+
+    def __setitem__(self, k, x):
+        self.add(k, x - self[k])
 
     def __iter__(self):
         """ [a0, a1, a2, ...] """
@@ -67,8 +69,3 @@ class Binary_Indexed_Tree:
         text1 = " ".join(["element:            "] + list(map(str, self)))
         text2 = " ".join(["cumsum(1-indexed):  "] + list(str(self.sum(i)) for i in range(1, self.n + 1)))
         return "\n".join((text1, text2))
-
-
-d = Binary_Indexed_Tree(10)
-d.add(2, 3)
-print(d.sum(5))
