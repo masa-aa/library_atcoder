@@ -18,11 +18,14 @@ def dijkstra(es: "隣接リスト", start: "始点", INF=2000000000000000):
     return d
 
 
+import sys
+input = sys.stdin.readline
+
 n, m = map(int, input().split())
 es = [[] for _ in range(n)]  # es[i] = (頂点iの(隣接する頂点,コスト)の組)
 # 入力
 for _ in range(m):
     start, end, distance = map(int, input().split())
-    start, end = start - 1, end - 1
+    start -= 1; end -= 1
     es[start].append((end, distance))
     es[end].append((start, distance))  # 無向グラフ
