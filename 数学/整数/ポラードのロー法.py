@@ -7,8 +7,8 @@ from random import randrange
 
 
 class PrimeFactor:
-    def __init__(self):
-        pass
+    def __init__(self, n):
+        self.primes = self.factorization(n)
 
     def is_prime(self, N):
         """ミラーラビン"""
@@ -75,7 +75,7 @@ class PrimeFactor:
         """約数列挙"""
         if N == 1:
             return [1]
-        c = Counter(self.factorization(N))
+        c = Counter(self.primes)
         mul_list = []
         for i in c:
             tmp = [1] * (c[i] + 1)
@@ -90,7 +90,7 @@ class PrimeFactor:
         if N == 1:
             return 1
         res = 1
-        for i in Counter(self.factorization(N)).values():
+        for i in Counter(self.primes).values():
             res *= i + 1
         return res
 
@@ -99,7 +99,7 @@ class PrimeFactor:
         if N == 1:
             return 1
         res = 1
-        c = Counter(self.factorization(N))
+        c = Counter(self.primes)
         for i in c:
             res *= (i ** (c[i] + 1) - 1) // (i - 1)
         return res
@@ -107,7 +107,7 @@ class PrimeFactor:
     def Eulers_function(self, N):
         """オイラー関数"""
         res = 1
-        for i in set(self.factorization(N)):
+        for i in set(self.primes):
             res *= (i - 1)
             N //= i
         return res * N
