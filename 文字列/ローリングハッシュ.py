@@ -76,7 +76,7 @@ class RollingHash:
         return hasha == hashs
 
 # verify contain
-# https://onlinejudge.u-aizu.ac.jp/solutions/problem/ALDS1_14_B/review/5127891/masa_aa/Python3
+# https://onlinejudge.u-aizu.ac.jp/solutions/problem/ALDS1_14_B/review/5211162/masa_aa/Python3
 
 
 def main():
