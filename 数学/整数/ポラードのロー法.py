@@ -112,5 +112,13 @@ class PrimeFactor:
             N //= i
         return res * N
 
+    def __iter__(self):
+        for i in self.primes:
+            yield i
+
+    def __repr__(self):
+        return "{}".format(self.primes)
+
+
 # verify
 # https://judge.yosupo.jp/problem/factorize

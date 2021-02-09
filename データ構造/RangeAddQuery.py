@@ -46,6 +46,3 @@ class RangeAddQuery:
     def __iter__(self):
         for i in range(self.n):
             yield self.get(i)
-
-    def __list__(self):
-        return list(self)
