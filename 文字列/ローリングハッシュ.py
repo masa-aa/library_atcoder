@@ -77,16 +77,3 @@ class RollingHash:
 
 # verify contain
 # https://onlinejudge.u-aizu.ac.jp/solutions/problem/ALDS1_14_B/review/5211162/masa_aa/Python3
-
-
-def main():
-    t = input()
-    p = input()
-    rh = RollingHash(t)
-    res = rh.contain(p)
-    if res:
-        print(*res, sep="\n")
-
-
-if __name__ == "__main__":
-    main()
