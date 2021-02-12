@@ -13,9 +13,11 @@ def inversion_number(a: list) -> int:
         while i < n:
             tree[i] += 1
             i |= i + 1
+    print(tree)
     return res
 
 
+print(inversion_number([5, 4, 3, 2, 1]))
 """
 a(0-indexedで座圧済), bit := Binary Indexed Treeに対して,
 
