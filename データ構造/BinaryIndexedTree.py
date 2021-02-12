@@ -1,5 +1,5 @@
 # 人から借りてきている
-class Binary_Indexed_Tree:
+class BinaryIndexedTree:
     def __init__(self, n):
         """
         :param n: 最大の要素数
