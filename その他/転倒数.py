@@ -2,17 +2,17 @@ def inversion_number(a: list) -> int:
     """a(0-indexedで座圧済)の転倒数を求める"""
     n = len(a)
     tree = [0] * (n + 1)
-    res = 0
-    for i, e in enumerate(a):
+    res = n * (n - 1) // 2
+    for i in a:
         s = 0
-        j = e - 1
+        j = i - 1
         while j >= 0:
             s += tree[j]
             j = (j & (j + 1)) - 1
-        res += i - s
-        while e < n:
-            tree[e] += 1
-            e |= e + 1
+        res -= s
+        while i < n:
+            tree[i] += 1
+            i |= i + 1
     return res
 
 
