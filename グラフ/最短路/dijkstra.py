@@ -5,7 +5,7 @@ def dijkstra(es: "隣接リスト", start: "始点", INF=2000000000000000):
     # INF = 2 * 10**15 (> 10**6 * 10**9)
     V = len(es)
     d = [INF] * V  # 頂点sからの最短距離
-    que = [(0, start)]
+    que = [(0, start)]  # (距離, 頂点)
     d[start] = 0
     while que:
         dv, v = heappop(que)

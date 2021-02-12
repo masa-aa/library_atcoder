@@ -7,7 +7,7 @@ def dijkstra(es: "隣接リスト", start: "始点", INF=2000000000000000):
     V = len(es)
     d = [INF] * V  # 頂点sからの最短距離
     prev = [-1] * V  # 経路復元
-    que = [(0, start)]
+    que = [(0, start)]  # (距離, 頂点)
     d[start] = 0
 
     while que:
