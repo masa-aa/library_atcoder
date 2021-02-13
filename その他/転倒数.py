@@ -17,7 +17,6 @@ def inversion_number(a: list) -> int:
     return res
 
 
-print(inversion_number([5, 4, 3, 2, 1]))
 """
 a(0 or 1-indexedで座圧済), bit := Binary Indexed Treeに対して,
 
