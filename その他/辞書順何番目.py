@@ -1,5 +1,5 @@
 def count_dictionary_order(a: list, mod=1_000_000_007) -> int:
-    """0 or 1-indexedの順列が与えられてそれが辞書順何番目か(1-indexed)を返す"""
+    """0-indexedの順列が与えられてそれが辞書順何番目か(1-indexed)を返す"""
     n = len(a)
     tree = [0] * (n + 1)
     res = 1
@@ -18,6 +18,8 @@ def count_dictionary_order(a: list, mod=1_000_000_007) -> int:
         fac %= mod
     return res % mod
 
+
+print(count_dictionary_order([1, 2, 3]))
 
 """
 bit := Binary Indexed Treeに対して,
