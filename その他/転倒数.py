@@ -1,5 +1,5 @@
 def inversion_number(a: list) -> int:
-    """a(0-indexedで座圧済)の転倒数を求める"""
+    """a(0 or -indexedで座圧済)の転倒数を求める"""
     n = len(a)
     tree = [0] * (n + 1)
     res = n * (n - 1) // 2
@@ -19,7 +19,7 @@ def inversion_number(a: list) -> int:
 
 print(inversion_number([5, 4, 3, 2, 1]))
 """
-a(0-indexedで座圧済), bit := Binary Indexed Treeに対して,
+a(0 or 1-indexedで座圧済), bit := Binary Indexed Treeに対して,
 
 res = 0
 for i, e in enumerate(a):
