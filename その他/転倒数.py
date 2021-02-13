@@ -13,7 +13,6 @@ def inversion_number(a: list) -> int:
         while i < n:
             tree[i] += 1
             i |= i + 1
-    print(tree)
     return res
 
 
