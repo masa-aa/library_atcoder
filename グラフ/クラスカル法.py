@@ -1,14 +1,19 @@
-"""
-d:=[[頂点i,頂点j,iからjへのコスト],...]
-として,最小全域木のコストを返す.
-"""
+def krascal(n: "頂点数", D: "隣接リスト"):
+    """D[i] = (x, y, (x, y)間のcost), 最小全域木のコストを返す"""
+    uf = UnionFind(n)
+    D.sort(key=lambda x: x[2])
+    cost = 0
+    for x, y, c in D:
+        if not uf.same(x, y):
+            uf.union(x, y)
+            cost += c
+    return cost
 
 
 class UnionFind:
-    __slots__ = ["N", "root"]
+    __slots__ = ["root"]
 
     def __init__(self, N):
-        self.N = N
         self.root = [-1] * N
 
     def find(self, x):
@@ -28,18 +33,6 @@ class UnionFind:
 
     def same(self, x, y):
         return self.find(x) == self.find(y)
-
-
-def krascal(n: "頂点数", D: "隣接リスト"):
-    """D[i] = (x, y, (x, y)間のcost), 最小全域木のコストを返す"""
-    uf = UnionFind(n)
-    D.sort(key=lambda x: x[2])
-    cost = 0
-    for x, y, c in D:
-        if not uf.same(x, y):
-            uf.union(x, y)
-            cost += c
-    return cost
 
 
 # if __name__ == '__main__':
