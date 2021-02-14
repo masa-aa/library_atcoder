@@ -3,6 +3,7 @@ class WeightedUnionFind:
 
     def __init__(self, N):
         """root[v] = vの親, diff_weight[v] = 根からの重み"""
+        N += 1
         self.root = [-1] * N
         self.diff_weight = [0] * N
 

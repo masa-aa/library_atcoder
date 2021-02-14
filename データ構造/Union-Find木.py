@@ -7,6 +7,7 @@ class UnionFind:
         root:各要素の親要素の番号を格納するリスト.
              ただし, root[x] < 0 ならその頂点が根で-root[x]が木の要素数.
         """
+        N += 1
         self.N = N
         self.root = [-1] * N
 
