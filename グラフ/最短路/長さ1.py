@@ -18,11 +18,14 @@ def shortest_path_bfs(es: "隣接リスト", start: "始点"):
     return d
 
 
+import sys
+input = sys.stdin.readline
+
 n, m = map(int, input().split())
 es = [[] for _ in range(n)]
 # 入力
-for i in range(m):
-    a, b = map(int, input().split())
-    a, b = a - 1, b - 1
-    es[a].append(b)
-    es[b].append(a)  # 無向グラフ
+for _ in range(m):
+    start, end = map(int, input().split())
+    start -= 1; end -= 1
+    es[start].append(end)
+    es[end].append(start)  # 無向グラフ
