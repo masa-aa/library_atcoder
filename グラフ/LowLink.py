@@ -1,4 +1,5 @@
 # 未完成
+# 多重辺　未対応
 class LowLink:
     def __init__(self, G, root=0):
         self.n = n = len(G)
