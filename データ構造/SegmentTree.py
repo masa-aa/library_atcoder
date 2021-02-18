@@ -10,8 +10,9 @@ class SegmentTree:
         if isinstance(init, int):
             self.size = 1 << (init - 1).bit_length()
             self.seg = [e] * (2 * self.size)
+            self.n = init
         else:
-            n = len(init)
+            self.n = n = len(init)
             self.size = 1 << (n - 1).bit_length()
             self.seg = [e] * (2 * self.size)
             seg = self.seg
@@ -76,5 +77,9 @@ class SegmentTree:
         print("\n".join(res))
         print("-" * k)
 
+    def __iter__(self):
+        for i in range(self.n):
+            yield self[i]
+
     def __repr__(self):
-        return " ".join(map(str, self.seg[self.size:]))
+        return " ".join(map(str, self))
