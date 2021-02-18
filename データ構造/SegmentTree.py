@@ -21,7 +21,14 @@ class SegmentTree:
                 seg[i] = op(seg[2 * i], seg[2 * i + 1])
 
     def __getitem__(self, k):
-        return self.seg[k + self.size]
+        """ 
+            seg[k] -> seg の k 番目を返す．O(1)
+            seg[l, r] -> op(seg[l], seg[l + 1], ... ,seg[r - 1]) を返す．O(log(n))
+        """
+        if isinstance(k, int):
+            return self.seg[k + self.size]
+        l, r = k
+        return self.prod(l, r)
 
     def __setitem__(self, k, x):
         return self.set(k, x)
