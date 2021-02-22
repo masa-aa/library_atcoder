@@ -1,6 +1,7 @@
-# 未完成
-# 多重辺　未対応
 class LowLink:
+    """単純連結なグラフに対して橋，関節点の列挙をO(N + M)で行う．"""
+    """多重辺，自己ループは未対応であることに注意"""
+
     def __init__(self, G, root=0):
         self.n = n = len(G)
         self.root = root
@@ -8,9 +9,9 @@ class LowLink:
         self.lowlink = [0] * n
         self.parents = [-1] * n
         self.G = G
-        self.dfs(root)
+        self._dfs(root)
 
-    def dfs(self, root):
+    def _dfs(self, root):
         """ 非再帰で深さ優先探索を行う """
         G = self.G
         order = self.order
@@ -42,48 +43,44 @@ class LowLink:
                 v = child
 
     def bridge(self):
+        """橋のリストを返す．"""
         G = self.G
         order = self.order
         lowlink = self.lowlink
         res = []
-        for u, g in enumerate(G):
-            for v in g:
-                if order[u] < lowlink[v]:
-                    res.append((u, v))
+        for v, g in enumerate(G):
+            for u in g:
+                if order[v] < lowlink[u]:
+                    res.append((v, u))
         return res
 
     def articulation_point(self):
+        """関節点のリスト(ソート済)を返す．"""
         G = self.G
         root = self.root
         order = self.order
         lowlink = self.lowlink
         parents = self.parents
-        res = set()
-        for u, g in enumerate(G):
-            if u == root:
-                if parents.count(u) >= 2:
-                    res.add(u)
+        res = []
+        for v, g in enumerate(G):
+            if v == root:
+                childs = 0
+                for u in g:
+                    if parents[u] == root:
+                        if childs:
+                            res.append(v)
+                            break
+                        childs += 1
                 continue
-            for v in g:
-                if parents[u] == v:
-                    continue
-                if order[u] <= lowlink[v]:
-                    res.add(u)
+            for u in g:
+                if parents[u] == v and order[v] <= lowlink[u]:
+                    res.append(v)
+                    break
         return res
 
 
-import sys
-input = sys.stdin.readline
+# 関節点
+# https://onlinejudge.u-aizu.ac.jp/solutions/problem/GRL_3_A/review/5243835/masa_aa/Python3
 
-n, m = map(int, input().split())
-es = [[] for _ in range(n)]
-for _ in range(m):
-    x, y = map(int, input().split())
-    es[x].append(y)
-    es[y].append(x)
-
-res = LowLink(es).articulation_point()
-res = sorted(res)
-if res:
-    print(*res, sep="\n")
-print(LowLink(es).bridge())
+# 橋
+# https://onlinejudge.u-aizu.ac.jp/solutions/problem/GRL_3_B/review/5231887/masa_aa/Python3
