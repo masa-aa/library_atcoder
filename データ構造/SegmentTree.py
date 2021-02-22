@@ -10,8 +10,9 @@ class SegmentTree:
         if isinstance(init, int):
             self.size = 1 << (init - 1).bit_length()
             self.seg = [e] * (2 * self.size)
+            self.n = init
         else:
-            n = len(init)
+            self.n = n = len(init)
             self.size = 1 << (n - 1).bit_length()
             self.seg = [e] * (2 * self.size)
             seg = self.seg
@@ -21,7 +22,14 @@ class SegmentTree:
                 seg[i] = op(seg[2 * i], seg[2 * i + 1])
 
     def __getitem__(self, k):
-        return self.seg[k + self.size]
+        """ 
+            seg[k] -> seg の k 番目を返す．O(1)
+            seg[l, r] -> op(seg[l], seg[l + 1], ... ,seg[r - 1]) を返す．O(log(n))
+        """
+        if isinstance(k, int):
+            return self.seg[k + self.size]
+        l, r = k
+        return self.prod(l, r)
 
     def __setitem__(self, k, x):
         return self.set(k, x)
@@ -69,5 +77,9 @@ class SegmentTree:
         print("\n".join(res))
         print("-" * k)
 
+    def __iter__(self):
+        for i in range(self.n):
+            yield self[i]
+
     def __repr__(self):
-        return " ".join(map(str, self.seg[self.size:]))
+        return " ".join(map(str, self))
