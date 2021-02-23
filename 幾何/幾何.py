@@ -52,18 +52,43 @@ class vector:
 
 
 def is_parallel(P, Q):
-    """2つのベクトルが平行かどうか"""
+    """2つのベクトルP, Qが平行かどうか"""
     a, b = P[0], Q[0]
     return all(a * j == i * b for i, j in zip(P, Q))
 
 
 def is_orthogonal(P, Q):
-    """2つのベクトルが垂直かどうか"""
+    """2つのベクトルP, Qが垂直かどうか"""
     return P @ Q == 0
 
 
-def is_cross(P, Q):
-    
-    pass
+def same_line(a, b, c, d):
+    """2つの線分(a, b), (c, d)が同一直線かどうか"""
+    if not is_parallel(vector(a) - vector(b), vector(c) - vector(d)):
+        return False
+    return (a[0] - b[0]) * (c[1] - a[1]) == (a[1] - b[1]) * (c[0] - a[0])
 
 
+def is_cross(a, b, c, d):
+    """2つの線分(a, b), (c, d)が交差するかどうか"""
+    if same_line(a, b, c, d):
+        if a[0] == b[0]:
+            s, t, u, v = a[1], b[1], c[1], d[1]
+        else:
+            s, t, u, v = a[0], b[0], c[0], d[0]
+        if s > t:
+            s, t = t, s
+        if u > v:
+            u, v = v, u
+        return max(s, u) <= min(t, v)
+
+    s = (a[0] - b[0]) * (c[1] - a[1]) - (a[1] - b[1]) * (c[0] - a[0])
+    t = (a[0] - b[0]) * (d[1] - a[1]) - (a[1] - b[1]) * (d[0] - a[0])
+    if s * t > 0:
+        return False
+
+    s = (c[0] - d[0]) * (a[1] - c[1]) - (c[1] - d[1]) * (a[0] - c[0])
+    t = (c[0] - d[0]) * (b[1] - c[1]) - (c[1] - d[1]) * (b[0] - c[0])
+    if s * t > 0:
+        return False
+    return True
