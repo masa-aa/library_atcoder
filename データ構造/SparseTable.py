@@ -25,3 +25,6 @@ class SparseTable:
         b = self.log[r - l]
         s = self.sparse_table[b]
         return min(s[l], s[r - (1 << b)])
+
+    def __repr__(self):
+        return "\n".join("width={}:".format(1 << v) + str(e) for v, e in enumerate(self.sparse_table))
