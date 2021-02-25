@@ -1,5 +1,9 @@
 class SparseTable_index:
+    """更新がない場合の区間の最小値を高速に求める．<O(nlog(n), O(1))>"""
+    __slots__ = ["sparse_table", "log", "array"]
+
     def __init__(self, array: list):
+        """O(nlog(n))"""
         n = len(array)
         logn = n.bit_length()
         self.array = array
@@ -19,6 +23,7 @@ class SparseTable_index:
             log[i] = log[i >> 1] + 1
 
     def prod(self, l: int, r: int) -> int:
+        """min(array[l:r])を返す．O(1)"""
         b = self.log[r - l]
         s = self.sparse_table[b]
         first, second = s[l], s[r - (1 << b)]
