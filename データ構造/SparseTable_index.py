@@ -8,9 +8,8 @@ class SparseTable_index:
         logn = n.bit_length()
         self.array = array
         self.sparse_table = st = [[0] * (n + 1 - (1 << i)) for i in range(logn)]
-        s = st[0]
-        for i in range(n):
-            s[i] = i
+        st[0] = list(range(n))
+
         for i in range(logn - 1):
             s = st[i]
             t = st[i + 1]
