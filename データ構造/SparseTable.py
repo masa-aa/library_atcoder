@@ -22,6 +22,9 @@ class SparseTable:
 
     def prod(self, l: int, r: int) -> int:
         """min(array[l:r])を返す．O(1)"""
+        # l < r 以外の入力は認められない．
+        # if l >= r:
+        #     return 1 << 60
         b = self.log[r - l]
         s = self.sparse_table[b]
         return min(s[l], s[r - (1 << b)])
