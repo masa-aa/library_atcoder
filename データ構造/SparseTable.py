@@ -3,7 +3,7 @@ class SparseTable:
         n = len(array)
         logn = n.bit_length()
         self.sparse_table = st = [[0] * (n + 1 - (1 << i)) for i in range(logn)]
-        st[0] = array
+        st[0] = array.copy()
         for i in range(logn - 1):
             s = st[i]
             t = st[i + 1]
