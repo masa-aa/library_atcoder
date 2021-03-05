@@ -20,12 +20,25 @@ def shortest_path_bfs(es: "隣接リスト", start: "始点"):
 
 import sys
 input = sys.stdin.readline
+from array import array
 
 n, m = map(int, input().split())
-es = [[] for _ in range(n)]
-# 入力
-for _ in range(m):
+es = [array("i") for _ in range(n)]
+for i in range(m):
     start, end = map(int, input().split())
     start -= 1; end -= 1
     es[start].append(end)
     es[end].append(start)  # 無向グラフ
+
+s = int(input()) - 1
+k = int(input()) + 1
+dist = [[0] * k for _ in range(k)]
+
+t = array("i", map(lambda x: int(x) - 1, input().split()))
+t.insert(0, s)
+
+for i, e in enumerate(t):
+    d = shortest_path_bfs(es, e)
+    dist[i] = [d[i] for i in t]
+
+
