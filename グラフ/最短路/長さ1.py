@@ -29,16 +29,3 @@ for i in range(m):
     start -= 1; end -= 1
     es[start].append(end)
     es[end].append(start)  # 無向グラフ
-
-s = int(input()) - 1
-k = int(input()) + 1
-dist = [[0] * k for _ in range(k)]
-
-t = array("i", map(lambda x: int(x) - 1, input().split()))
-t.insert(0, s)
-
-for i, e in enumerate(t):
-    d = shortest_path_bfs(es, e)
-    dist[i] = [d[i] for i in t]
-
-
