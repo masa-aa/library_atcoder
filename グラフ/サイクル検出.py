@@ -58,3 +58,53 @@ if c:
     print(*res, sep="\n")
 else:
     print(-1)
+
+import sys
+sys.setrecursionlimit(1000000000)
+input = sys.stdin.readline
+from array import array
+from collections import deque
+
+
+def dfs(v, p, pos):
+    seen[v] = 1
+    hist.append(v)
+    for nv in es[v]:
+        if nv == p:
+            continue
+        if finished[nv]:
+            continue
+        if seen[nv] and not finished[nv]:
+            pos = nv
+            return pos
+
+        dfs(nv, v, pos)
+
+        if pos != -1:
+            return
+    hist.pop()
+    finished[v] = 1
+
+
+n, m = map(int, input().split())
+es = [array("i") for _ in range(n)]
+for i in range(m):
+    start, end = map(int, input().split())
+    start -= 1; end -= 1
+    es[start].append(end)
+    es[end].append(start)
+
+seen = [0] * n
+finished = [0] * n
+hist = deque()
+
+pos = dfs(0, -1, -1)
+cycle = set()
+
+while hist:
+    t = hist.pop()
+    cycle.add(t)
+    if t == pos:
+        break
+
+print(cycle)

@@ -12,11 +12,11 @@ def TSP(dist: "距離行列"):
             dp[1 << v][v] = min(dp[1 << v][v], dp[0][u] + dist[u][v])
     "*"
     for S in range(1, 1 << n):
-        for u in range(n):
+        for u, (dp_su, dist_u) in enumerate(zip(dp[S], dist)):
             if not S >> u & 1:
                 continue
             for v in range(n):
                 if S >> v & 1:
                     continue
-                dp[S + (1 << v)][v] = min(dp[S + (1 << v)][v], dp[S][u] + dist[u][v])
+                dp[S + (1 << v)][v] = min(dp[S + (1 << v)][v], dp_su + dist_u[v])
     return dp[-1]
