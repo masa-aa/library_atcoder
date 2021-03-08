@@ -3,3 +3,7 @@ https://atcoder.jp/contests/chokudai_S002/tasks/chokudai_S002_i
 
 くっつけるときは大きい方にくっつけるとなんか計算量落ちる．(マージテク)
 https://atcoder.jp/contests/abc183/tasks/abc183_f
+
+確率 p(0 < p <= 1)で成功する試行を成功するまで行うときの試行回数の期待値は1/p 
+https://atcoder.jp/contests/abc194/tasks/abc194_d
+https://mathtrain.jp/completegacha
