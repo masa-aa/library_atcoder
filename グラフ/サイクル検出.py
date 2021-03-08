@@ -1,48 +1,52 @@
-import sys
-sys.setrecursionlimit(1000000000)
-input = sys.stdin.readline
 from array import array
 from collections import deque
 
 
-def dfs(v, p):
-    global pos
-    seen[v] = 1
-    hist.append(v)
-    for nv in es[v]:
-        if nv == p:
+def cycle(G: "隣接リスト") -> list:
+    """グラフのサイクル検出をする．"""
+    # memo 有向グラフの時はparentsを消すとパフォーマンスが向上する．
+    n = len(G)
+    seen = [0] * n
+    finished = [0] * n
+    parents = [-1] * n
+    for root in range(n):
+        if seen[root]:
             continue
-        if finished[nv]:
-            continue
-        if seen[nv] and not finished[nv]:
-            pos = nv
-            return
+        hist = deque()
+        que = deque()
+        que.append(~root); que.append(root)
+        while que:
+            v = que.pop()
+            if v >= 0:
+                seen[v] = 1
+                hist.append(v)
+                for e in G[v]:
+                    if parents[v] == e:
+                        continue
+                    if finished[e]:
+                        continue
+                    if seen[e] and not finished[e]:
+                        while hist:
+                            if hist[0] == e:
+                                break
+                            hist.popleft()
+                        return list(hist)
+                    que.append(~e); que.append(e)
+                    parents[e] = v
+            else:
+                hist.pop()
+                finished[~v] = 1
 
-        dfs(nv, v)
+    return []
 
-        if pos != -1:
-            return
-    hist.pop()
-    finished[v] = 1
 
+import sys
+input = sys.stdin.readline
 
 n, m = map(int, input().split())
 es = [array("i") for _ in range(n)]
 for i in range(m):
     start, end = map(int, input().split())
-    start -= 1; end -= 1
+    # start -= 1; end -= 1
     es[start].append(end)
-
-seen = [0] * n
-finished = [0] * n
-hist = deque()
-
-pos = -1
-for i in range(n):
-    if not seen[i]:
-        dfs(i, -1)
-    if pos != -1:
-        print(1)
-        exit()
-
-print(0)
+    # es[end].append(start)
