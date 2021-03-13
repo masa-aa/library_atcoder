@@ -1,4 +1,4 @@
-def rem(n: list, a: int):
+def rem(n: list, a: int) -> int:
     """ n % a を求める"""
     ans = 0
     for i in n:
