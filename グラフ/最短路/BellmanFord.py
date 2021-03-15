@@ -1,5 +1,8 @@
-def bellman_ford(start: "始点", V: "頂点数", es: "隣接リスト", INF=1_000_000_000_000_000_000):
+# (始点, 終点, cost)で持つと高速化につながる.
+
+def bellman_ford(es: "隣接リスト", start: "始点", INF=1_000_000_000_000_000_000):
     """負の閉路が存在すればFalseを返す"""
+    V = len(es)
     d = [INF] * V  # 各頂点への最小コスト
     d[start] = 0  # 自身への距離は0
     for _ in range(V):
