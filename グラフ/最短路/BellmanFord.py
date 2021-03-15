@@ -1,6 +1,5 @@
-def bellman_ford(start: "始点", V: "頂点数", es: "隣接リスト", INF=10000000000):
+def bellman_ford(start: "始点", V: "頂点数", es: "隣接リスト", INF=1_000_000_000_000_000_000):
     """負の閉路が存在すればFalseを返す"""
-    # INF = 10**10 毎回チェックしよう
     d = [INF] * V  # 各頂点への最小コスト
     d[start] = 0  # 自身への距離は0
     for _ in range(V):
@@ -18,12 +17,13 @@ def bellman_ford(start: "始点", V: "頂点数", es: "隣接リスト", INF=100
     return d
 
 
-n, m = map(int, input().split())
-es = [[] for _ in range(n)]  # es[i] = (頂点iの(隣接する頂点,コスト)の組)
+import sys
+input = sys.stdin.readline
 
-# 入力
+n, m = map(int, input().split())
+es = [[] for _ in range(n)]
 for i in range(m):
-    a, b, c = map(int, input().split())
-    a, b = a - 1, b - 1
-    es[a].append((b, c))
-    es[b].append((a, c))  # 無向グラフ
+    start, end, weight = map(int, input().split())
+    start -= 1; end -= 1
+    es[start].append((end, weight))
+    es[end].append((start, weight))
