@@ -1,7 +1,8 @@
 from collections import deque
 
 
-def topological_sort(V, es):
+def topological_sort(es):
+    V = len(es)
     _es = [[] for _ in range(V)]
     deg = [0] * V
     for i in range(V):
@@ -24,9 +25,13 @@ def topological_sort(V, es):
     return order
 
 
+import sys
+input = sys.stdin.readline
+from array import array
+
 n, m = map(int, input().split())
-es = [[] for _ in range(n)]
-for _ in range(m):
-    a, b = map(int, input().split())
-    a, b = a - 1, b - 1
-    es[a].append(b)
+es = [array("i") for _ in range(n)]
+for i in range(m):
+    start, end = map(int, input().split())
+    start -= 1; end -= 1
+    es[start].append(end)

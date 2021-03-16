@@ -21,7 +21,8 @@ def inv_gcd(a, b):
 
 
 def crt(r: list, m: list) -> tuple:
-    """数列r, mに対して連立合同式 x ≡ ri (mod mi)(0<=i<n) の解の計算"""
+    """数列r, mに対して連立合同式 x ≡ ri (mod mi)(0<=i<n) の解 r0 と m0 = lcm(m)を返す．"""
+    """解が存在しないとき (0, 0) を返す．"""
     # assert len(r) == len(m)
     r0, m0 = 0, 1
     for r1, m1 in zip(r, m):
