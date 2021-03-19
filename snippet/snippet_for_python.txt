@@ -61,21 +61,8 @@
 	},
 	"ki": {
 		"prefix": "ki",
-		"body": [
-			"import sys",
-			"sys.setrecursionlimit(1000000000)",
-			"input = sys.stdin.readline",
-			"n = int(input())",
-			"es = [[] for i in range(n)]",
-			"for i in range(n - 1):",
-			"   a, b = map(int, input().split())",
-			"   es[a - 1].append(b - 1)",
-			"   es[b - 1].append(a - 1)",
-			"def dfs(v):",
-			"    ${1:}",
-			"    return"
-		],
-		"description": "木の入力"
+		"body": "import sys\r\nsys.setrecursionlimit(1000000000)\r\ninput = sys.stdin.readline\r\nfrom array import array\r\n\r\nn = int(input())\r\nes = [array(\"i\") for _ in range(n)]\r\nfor i in range(n - 1):\r\n    start, end = map(int, input().split())\r\n    start -= 1; end -= 1\r\n    es[start].append(end)\r\n    es[end].append(start)\r\n",
+		"description": "木"
 	},
 	"heapq": {
 		"prefix": "heapq",
@@ -317,5 +304,30 @@
 		"prefix": "segment",
 		"body": "class SegmentTree:\r\n    def __init__(self, init, op, e):\r\n        \"\"\"\r\n        init : int か list\r\n        op : min, +, *, xor, gcd など\r\n        e : 単位元(min:inf, 和:0, 積:1, xor:0, gcd:0)\r\n        \"\"\"\r\n        self.op = op\r\n        self.e = e\r\n        if isinstance(init, int):\r\n            self.size = 1 << (init - 1).bit_length()\r\n            self.seg = [e] * (2 * self.size)\r\n        else:\r\n            n = len(init)\r\n            self.size = 1 << (n - 1).bit_length()\r\n            self.seg = [e] * (2 * self.size)\r\n            seg = self.seg\r\n            for i, e in enumerate(init):\r\n                seg[i + self.size] = e\r\n            for i in range(self.size - 1, 0, -1):\r\n                seg[i] = op(seg[2 * i], seg[2 * i + 1])\r\n\r\n    def __getitem__(self, k):\r\n        return self.seg[k + self.size]\r\n\r\n    def __setitem__(self, k, x):\r\n        return self.set(k, x)\r\n\r\n    def set(self, k, x):\r\n        \"\"\"k番目の要素の値をxに変更\"\"\"\r\n        k += self.size\r\n        seg = self.seg\r\n        seg[k] = x\r\n        while k > 1:\r\n            k >>= 1\r\n            seg[k] = self.op(seg[2 * k], seg[2 * k + 1])\r\n\r\n    def prod(self, l, r):\r\n        \"\"\"op(a[l], ..., a[r - 1])\"\"\"\r\n        l += self.size; r += self.size\r\n        s = self.e\r\n        while l < r:\r\n            if r & 1:\r\n                r -= 1\r\n                s = self.op(s, self.seg[r])\r\n            if l & 1:\r\n                s = self.op(s, self.seg[l])\r\n                l += 1\r\n            l >>= 1\r\n            r >>= 1\r\n        return s\r\n\r\n    def all_prod(self):\r\n        return self.seg[1]\r\n\r\n    def update(self, k, x):\r\n        \"\"\"k番目の要素の値をop(seg[k], x)に更新\"\"\"\r\n        self.set(k, self.op(self[k], x))\r\n\r\n    def debug(self):\r\n        n = len(self.seg).bit_length()\r\n        res = []\r\n        k = 1\r\n        for _ in range(1, n + 1):\r\n            res.append(\" \".join(map(str, self.seg[k:2 * k])))\r\n            k *= 2\r\n        k //= 2\r\n        print(\"-\" * k)\r\n        print(\"\\n\".join(res))\r\n        print(\"-\" * k)\r\n\r\n    def __repr__(self):\r\n        return \" \".join(map(str, self.seg[self.size:]))\r\n\r\n",
 		"description": "セグメント木"
+	},
+	"lambda": {
+		"prefix": "lambda",
+		"body": "lambda x:",
+		"description": "lambda"
+	},
+	"Graph": {
+		"prefix": "graph",
+		"body": "import sys\r\nsys.setrecursionlimit(1000000000)\r\ninput = sys.stdin.readline\r\nfrom array import array\r\n\r\nn, m = map(int, input().split())\r\nes = [array(\"i\") for _ in range(n)]\r\nfor i in range(m):\r\n    start, end = map(int, input().split())\r\n    start -= 1; end -= 1\r\n    es[start].append(end)\r\n    es[end].append(start)\r\n",
+		"description": "グラフ"
+	},
+	"Graph2": {
+		"prefix": "graph2",
+		"body": "import sys\r\nsys.setrecursionlimit(1000000000)\r\ninput = sys.stdin.readline\r\n\r\nn, m = map(int, input().split())\r\nes = [[] for _ in range(n)]\r\nfor i in range(m):\r\n    start, end, weight = map(int, input().split())\r\n    start -= 1; end -= 1\r\n    es[start].append((end, weight))\r\n    es[end].append((start, weight))\r\n",
+		"description": "グラフ"
+	},
+	"array": {
+		"prefix": "array ",
+		"body": "from array import array",
+		"description": "array"
+	},
+	"continue": {
+		"prefix": "continue",
+		"body": "continue",
+		"description": "continue"
 	}
 }
