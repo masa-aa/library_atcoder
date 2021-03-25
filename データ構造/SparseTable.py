@@ -1,5 +1,6 @@
 class SparseTable:
     """更新がない場合の区間の最小値を高速に求める．<O(nlog(n), O(1))>"""
+    # max, min, gcd等 冪等半群
     __slots__ = ["sparse_table", "log"]
 
     def __init__(self, array: list):
