@@ -14,13 +14,24 @@ class DeletablePriorityQueue:
         heapify(arr)
         self.arr = arr
 
-    def get(self, k):
+    def __getitem__(self, k):  # 非推奨
         return self.arr[k]
 
-    def __repr__(self):
+    def __repr__(self):  # 非推奨
         return "[{}]".format(", ".join(map(str, self.arr)))
 
+    def __iter__(self):  # 非推奨
+        for i in self.arr:
+            yield i
+
+    def __bool__(self):
+        while self.arr and not self.dic[self.arr[0]]:
+            heappop(self.arr)
+        return bool(self.arr)
+
     def top(self):
+        while not self.dic[self.arr[0]]:
+            heappop(self.arr)
         return self.arr[0]
 
     def push(self, k):
@@ -42,16 +53,5 @@ class DeletablePriorityQueue:
         if self.arr[0] == k:
             heappop(self.arr)
 
-
-if __name__ == '__main__':
-    a = DeletablePriorityQueue([4, 7, 7, 9, 1, 4, 5])
-    print(a)
-    for i in range(10):
-        q, x = map(int, input().split())
-        if q == 0:
-            a.push(x)
-        elif q == 1:
-            print(a.pop())
-        else:
-            a.delete(x)
-        print(a)
+# https://atcoder.jp/contests/abc128/submissions/21253262
+# SortedListより遅い
