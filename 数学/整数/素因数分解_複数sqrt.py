@@ -19,15 +19,13 @@ class factorization:
         """O(sqrt(N)/log(N))"""
         if n == 1:
             return []
-        arr = []
-        temp = n
+        res = []
         for i in self.sieve:
-            if temp % i == 0:
-                cnt = 0
-                while temp % i == 0:
-                    cnt += 1
-                    temp //= i
-                    arr.append(i)
-        if temp != 1:
-            arr.append(temp)
-        return arr
+            if i * i > n:
+                break
+            while n % i == 0:
+                n //= i
+                res.append(i)
+        if n != 1:
+            res.append(n)
+        return res
