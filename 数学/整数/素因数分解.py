@@ -3,18 +3,18 @@ def factorization(n: int) -> list:
     """2以上の整数N -> [e1, e2, ...]のリスト"""
     if n == 1:
         return []
-    arr = []
+    res = []
     while n % 2 == 0:
         n //= 2
-        arr.append(2)
+        res.append(2)
     for i in range(3, n + 1, 2):
         if i * i > n:
             break
         while n % i == 0:
             n //= i
-            arr.append(i)
+            res.append(i)
 
     if n != 1:
-        arr.append(n)
+        res.append(n)
 
-    return arr
+    return res
