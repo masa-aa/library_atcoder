@@ -1,0 +1,293 @@
+using namespace std;
+#ifndef INCLUDED_MAIN_CPP
+#define INCLUDED_MAIN_CPP
+#include __FILE__
+
+const ll MOD = 998244353;
+int main() {
+    cin.tie(0);
+    ios::sync_with_stdio(false);
+    cout << setprecision(20) << setiosflags(ios::fixed);
+}
+
+#else
+#include <algorithm>
+#include <bitset>
+#include <cassert>
+#include <cctype>
+#include <cfloat>
+#include <climits>
+#include <cmath>
+#include <complex>
+#include <cstdio>
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <iterator>
+#include <list>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <optional>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+
+#pragma GCC optimize("O3")
+#pragma GCC target("avx2")
+#pragma GCC optimize("unroll-loops")
+#define all(x) (x).begin(), (x).end()
+#define reall(a) (a).rbegin(), (a).rend()
+#define Sort(x) sort((x).begin(), (x).end())
+#define Reverse(x) reverse((x).begin(), (x).end())
+#define len(x) (ll) x.size()
+#define en '\n'
+#define pb emplace_back
+#define elif else if
+#define sum(...) accumulate(all(__VA_ARGS__), 0LL)
+#define bisect_left(arr, k) lower_bound(all(arr), (k)) - (arr).begin()
+#define bisect_right(arr, k) upper_bound(all(arr), (k)) - (arr).begin()
+#define uniq(arr)                                                                                                      \
+    sort(all(arr));                                                                                                    \
+    arr.erase(unique(all(arr)), end(arr))
+
+using str = string;
+using ll = long long;
+using ld = long double;
+using ull = unsigned long long;
+using ui = unsigned int;
+using puu = pair<ui, ui>;
+using P = pair<int, int>;
+using vi = vector<int>;
+using vll = vector<long long>;
+template <typename T> T ceil(T a, T b) { return (a + b - 1) / b; };
+
+// rep-------------------------------------------------------------------
+#define overload4(_1, _2, _3, _4, name, ...) name
+#define overload3(_1, _2, _3, name, ...) name
+#define rep1(i, n) for (ll i = 0; i < n; ++i)
+#define rep2(i, a, b) for (ll i = a; i < b; ++i)
+#define rep3(i, a, b, c) for (ll i = a, _bb = b; (a <= i && i < _bb) or (a >= i && i > _bb); i += c)
+#define rep(...) overload4(__VA_ARGS__, rep3, rep2, rep1)(__VA_ARGS__)
+#define each1(i, a) for (auto &&i : a)
+#define each2(x, y, a) for (auto &&[x, y] : a)
+#define each3(x, y, z, a) for (auto &&[x, y, z] : a)
+#define each(...) overload4(__VA_ARGS__, each3, each2, each1)(__VA_ARGS__)
+// ----------------------------------------------------------------------
+
+// 入出力-----------------------------------------------------------------
+struct input {
+    input(){};
+    operator int() {
+        int value;
+        scanf("%d", &value);
+        return value;
+    }
+    operator long long() {
+        long long value;
+        scanf("%lld", &value);
+        return value;
+    }
+    operator unsigned long long() {
+        unsigned long long value;
+        scanf("%llu", &value);
+        return value;
+    }
+    operator unsigned() {
+        unsigned value;
+        scanf("%u", &value);
+        return value;
+    }
+    operator float() {
+        float value;
+        scanf("%f", &value);
+        return value;
+    }
+    operator double() {
+        double value;
+        scanf("%lf", &value);
+        return value;
+    }
+    operator long double() {
+        long double value;
+        scanf("%Lf", &value);
+        return value;
+    }
+    operator char() {
+        char value;
+        do {
+            value = getchar();
+        } while (value == ' ' || value == '\n');
+        return value;
+    }
+    operator std::string() {
+        std::string value;
+        std::cin >> value;
+        return value;
+    }
+};
+void scan(int &a) { scanf("%d", &a); }
+void scan(unsigned &a) { scanf("%u", &a); }
+void scan(long &a) { scanf("%ld", &a); }
+void scan(long long &a) { scanf("%lld", &a); }
+void scan(unsigned long long &a) { scanf("%llu", &a); }
+void scan(char &a) {
+    do {
+        a = getchar();
+    } while (a == ' ' || a == '\n');
+}
+void scan(float &a) { scanf("%f", &a); }
+void scan(double &a) { scanf("%lf", &a); }
+void scan(long double &a) { scanf("%Lf", &a); }
+void scan(vector<bool> &a) {
+    for (unsigned i = 0; i < a.size(); i++) {
+        int b;
+        scan(b);
+        a[i] = b;
+    }
+}
+void scan(char a[]) { scanf("%s", a); }
+void scan(string &a) { cin >> a; }
+template <class T> void scan(vector<T> &);
+template <class T, size_t size> void scan(array<T, size> &);
+template <class T, class L> void scan(pair<T, L> &);
+template <class T, size_t size> void scan(T (&)[size]);
+template <class T> void scan(vector<T> &a) {
+    for (auto &&i : a)
+        scan(i);
+}
+template <class T> void scan(deque<T> &a) {
+    for (auto &&i : a)
+        scan(i);
+}
+template <class T, size_t size> void scan(array<T, size> &a) {
+    for (auto &&i : a)
+        scan(i);
+}
+template <class T, class L> void scan(pair<T, L> &p) {
+    scan(p.first);
+    scan(p.second);
+}
+template <class T, size_t size> void scan(T (&a)[size]) {
+    for (auto &&i : a)
+        scan(i);
+}
+template <class T> void scan(set<T> &a, int n) {
+    for (int i = 0; i < n; i++)
+        a.insert(input());
+}
+
+template <class T> void scan(T &a) { cin >> a; }
+template <class A, class B> ostream &operator<<(ostream &ost, const pair<A, B> &p) {
+    ost << "{" << p.first << ", " << p.second << "}";
+    return ost;
+}
+template <class T> ostream &operator<<(ostream &ost, const vector<T> &v) {
+    ost << "[";
+    for (int i = 0; i < v.size(); i++) {
+        if (i)
+            ost << ", ";
+        ost << v[i];
+    }
+    ost << "]";
+    return ost;
+}
+template <class A, class B> ostream &operator<<(ostream &ost, const map<A, B> &v) {
+    bool k = false;
+    ost << "{";
+    for (auto p : v) {
+        if (k) {
+            ost << ", ";
+        }
+        ost << "(" << p.first << ", " << p.second << ")";
+        k = true;
+    }
+    ost << "}";
+    return ost;
+}
+template <class T> ostream &operator<<(ostream &ost, const set<T> &v) {
+    bool k = false;
+    ost << "{";
+    for (auto p : v) {
+        if (k) {
+            ost << ", ";
+            k = true;
+        }
+        ost << p;
+        k = true;
+    }
+    ost << "}";
+    return ost;
+}
+template <class T> inline void print(const T &a) { cout << a << "\n"; }
+template <class T, class... Ts> inline void print(const T &a, const Ts &...ts) {
+    cout << a << " ";
+    print(ts...);
+}
+// -----------------------------------------------------------------------
+
+template <class T> inline bool chmax(T &a, T b) {
+    if (a < b) {
+        a = b;
+        return true;
+    }
+    return false;
+};
+template <class T> inline bool chmin(T &a, T b) {
+    if (a > b) {
+        a = b;
+        return true;
+    }
+    return false;
+};
+template <class T> auto min(const T &a) { return *min_element(a.begin(), a.end()); }
+template <class T> auto max(const T &a) { return *max_element(a.begin(), a.end()); }
+template <class T> ll intpow(T a, T b) {
+    ll ans = 1;
+    while (b) {
+        if (b & 1)
+            ans *= a;
+        a *= a;
+        b /= 2;
+    }
+    return ans;
+}
+template <class T> ll modpow(T a, T b, T p) {
+    ll ans = 1;
+    while (b) {
+        if (b & 1)
+            (ans *= a) %= p;
+        (a *= a) %= p;
+        b /= 2;
+    }
+    return ans;
+}
+template <typename A> A nlcm(vector<A> a) {
+    A res;
+    res = a[0];
+    for (ll i = 1; i < (ll)a.size(); i++) {
+        res = lcm(res, a[i]);
+    }
+    return res;
+}
+template <typename A> A ngcd(vector<A> a) {
+    A res;
+    res = a[0];
+    for (ll i = 1; i < (ll)a.size() && res != 1; i++) {
+        res = gcd(a[i], res);
+    }
+    return res;
+}
+
+const int INF = INT_MAX;
+// const ll mod = 1000000007;
+const double PI = acos(-1.0);
+#endif
