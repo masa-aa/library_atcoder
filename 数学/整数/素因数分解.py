@@ -1,27 +1,18 @@
-def factorization(N):
-    """Nを素因数分解(試し割り法)"""
-    """2以上の整数N => [素因数1, 素因数2, ...]の2次元リスト"""
-    if N == 1:
-        return []
-    arr = []
-    temp = N
-    if temp % 2 == 0:
-        cnt = 0
-        while temp % 2 == 0:
-            cnt += 1
-            temp //= 2
-            arr.append(2)
-    for i in range(3, N + 1, 2):
-        if i * i > N:
+def factorization(n: int) -> list:
+    """nを素因数分解(試し割り法)"""
+    """2以上の整数N -> [e1, e2, ...]のリスト n=1 -> []"""
+    res = []
+    while n % 2 == 0:
+        n //= 2
+        res.append(2)
+    for i in range(3, n + 1, 2):
+        if i * i > n:
             break
-        if temp % i == 0:
-            cnt = 0
-            while temp % i == 0:
-                cnt += 1
-                temp //= i
-                arr.append(i)
+        while n % i == 0:
+            n //= i
+            res.append(i)
 
-    if temp != 1:
-        arr.append(temp)
+    if n != 1:
+        res.append(n)
 
-    return arr
+    return res
