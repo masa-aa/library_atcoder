@@ -1,5 +1,5 @@
 class SegmentTree:
-    def __init__(self, init, op, e):
+    def __init__(self, init: int or list, op, e):
         """
         init : int か list
         op : min, +, *, xor, gcd など

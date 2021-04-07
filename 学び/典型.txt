@@ -12,3 +12,6 @@ Bellman Fordで始点から到達可能であり，終点へ到達可能な閉�
 Bellman Fordをした後，k = d[finish]を保存してもう一度Bellman Fordをして一致しているかどうかを判定
 https://mhrb-minase.hatenablog.com/entry/2019/08/20/003915
 https://atcoder.jp/contests/abc061/submissions/20970388
+
+操作が無限にできる → グラフに直した時閉路
+https://atcoder.jp/contests/mujin-pc-2018/tasks/mujin_pc_2018_d
