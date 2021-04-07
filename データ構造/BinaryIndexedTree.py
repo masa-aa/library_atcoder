@@ -1,9 +1,9 @@
 class BinaryIndexedTree:
     def __init__(self, init: int or list):
         if isinstance(init, int):
-            self.n = n
-            self.tree = [0] * (n + 1)
-            self.depth = n.bit_length() - 1
+            self.n = init
+            self.tree = [0] * (init + 1)
+            self.depth = init.bit_length() - 1
         else:
             self.n = len(init)
             self.tree = [0] * (self.n + 1)
