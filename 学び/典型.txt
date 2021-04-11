@@ -15,3 +15,8 @@ https://atcoder.jp/contests/abc061/submissions/20970388
 
 操作が無限にできる → グラフに直した時閉路
 https://atcoder.jp/contests/mujin-pc-2018/tasks/mujin_pc_2018_d
+
+c1*x1 + c2*x2 + ... + cn*xn = N
+(cが小さい)はbit DP で解ける
+https://atcoder.jp/contests/abc198/tasks/abc198_f
+https://atcoder.jp/contests/aising2020/tasks/aising2020_f

@@ -3,11 +3,11 @@ using namespace std;
 #define INCLUDED_MAIN_CPP
 #include __FILE__
 
-const ll MOD = 998244353;
 int main() {
-    cin.tie(0);
+    cin.tie(nullptr);
     ios::sync_with_stdio(false);
     cout << setprecision(20) << setiosflags(ios::fixed);
+
 }
 
 #else
@@ -37,6 +37,7 @@ int main() {
 #include <set>
 #include <sstream>
 #include <stack>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -88,37 +89,37 @@ struct input {
     input(){};
     operator int() {
         int value;
-        scanf("%d", &value);
+        cin >> value;
         return value;
     }
     operator long long() {
         long long value;
-        scanf("%lld", &value);
+        cin >> value;
         return value;
     }
     operator unsigned long long() {
         unsigned long long value;
-        scanf("%llu", &value);
+        cin >> value;
         return value;
     }
     operator unsigned() {
         unsigned value;
-        scanf("%u", &value);
+        cin >> value;
         return value;
     }
     operator float() {
         float value;
-        scanf("%f", &value);
+        cin >> value;
         return value;
     }
     operator double() {
         double value;
-        scanf("%lf", &value);
+        cin >> value;
         return value;
     }
     operator long double() {
         long double value;
-        scanf("%Lf", &value);
+        cin >> value;
         return value;
     }
     operator char() {
@@ -128,25 +129,25 @@ struct input {
         } while (value == ' ' || value == '\n');
         return value;
     }
-    operator std::string() {
-        std::string value;
-        std::cin >> value;
+    operator string() {
+        string value;
+        cin >> value;
         return value;
     }
 };
-void scan(int &a) { scanf("%d", &a); }
-void scan(unsigned &a) { scanf("%u", &a); }
-void scan(long &a) { scanf("%ld", &a); }
-void scan(long long &a) { scanf("%lld", &a); }
-void scan(unsigned long long &a) { scanf("%llu", &a); }
+void scan(int &a) { cin >> a; }
+void scan(unsigned &a) { cin >> a; }
+void scan(long &a) { cin >> a; }
+void scan(long long &a) { cin >> a; }
+void scan(unsigned long long &a) { cin >> a; }
 void scan(char &a) {
     do {
         a = getchar();
     } while (a == ' ' || a == '\n');
 }
-void scan(float &a) { scanf("%f", &a); }
-void scan(double &a) { scanf("%lf", &a); }
-void scan(long double &a) { scanf("%Lf", &a); }
+void scan(float &a) { cin >> a; }
+void scan(double &a) { cin >> a; }
+void scan(long double &a) { cin >> a; }
 void scan(vector<bool> &a) {
     for (unsigned i = 0; i < a.size(); i++) {
         int b;
@@ -154,7 +155,7 @@ void scan(vector<bool> &a) {
         a[i] = b;
     }
 }
-void scan(char a[]) { scanf("%s", a); }
+void scan(char a[]) { cin >> a; }
 void scan(string &a) { cin >> a; }
 template <class T> void scan(vector<T> &);
 template <class T, size_t size> void scan(array<T, size> &);
