@@ -1,14 +1,16 @@
-def longest_common_subsequence(S, T):
-    LS = len(S); LT = len(T)
-    if LT > LS:
-        S, T = T, S
-        LS, LT = LT, LS
-    dp = [0] * (LT + 1)
-    for s in S:
-        dp_pre = dp[:]
-        for j, t in enumerate(T):
-            if s == t:
-                dp[j + 1] = dp_pre[j] + 1
-            elif dp[j + 1] < dp[j]:
-                dp[j + 1] = dp[j]
+def longest_common_subsequence(s, t):
+    n = len(t)
+    dp = [0] * (n + 1)
+    prev = [0] * (n + 1)
+    for c in s:
+        prev, dp = dp, prev
+        for i in range(n):
+            if c == t[i]:
+                dp[i + 1] = prev[i] + 1
+            else:
+                dp[i + 1] = max(dp[i], prev[i + 1])
     return dp[-1]
+
+
+def convert(s):
+    return list(map(ord, s))

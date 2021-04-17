@@ -24,3 +24,14 @@ def sorted_divisors(N):
             if N != i * i:
                 upper_divisors.append(N // i)
     return lower_divisors + upper_divisors[::-1]
+
+
+def gen_divisors(N):
+    """Nの約数列挙するgenerator"""
+    for i in range(1, N + 1):
+        if i * i > N:
+            break
+        if N % i == 0:
+            yield i
+            if N != i * i:
+                yield N // i
