@@ -3,11 +3,10 @@ using namespace std;
 #define INCLUDED_MAIN_CPP
 #include __FILE__
 
-int main() {
+int main(){
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     cout << setprecision(20) << setiosflags(ios::fixed);
-
 }
 
 #else
@@ -55,8 +54,8 @@ int main() {
 #define sum(...) accumulate(all(__VA_ARGS__), 0LL)
 #define bisect_left(arr, k) lower_bound(all(arr), (k)) - (arr).begin()
 #define bisect_right(arr, k) upper_bound(all(arr), (k)) - (arr).begin()
-#define uniq(arr)                                                                                                      \
-    sort(all(arr));                                                                                                    \
+#define uniq(arr)   \
+    sort(all(arr)); \
     arr.erase(unique(all(arr)), end(arr))
 
 using str = string;
@@ -69,6 +68,14 @@ using P = pair<int, int>;
 using vi = vector<int>;
 using vll = vector<long long>;
 template <typename T> T ceil(T a, T b) { return (a + b - 1) / b; };
+template <class T>
+vector<T> make_vec(size_t a){
+    return vector<T>(a);
+}
+template <class T, class... Ts>
+auto make_vec(size_t a, Ts... ts){
+    return vector<decltype(make_vec<T>(ts...))>(a, make_vec<T>(ts...));
+}
 
 // rep-------------------------------------------------------------------
 #define overload4(_1, _2, _3, _4, name, ...) name
