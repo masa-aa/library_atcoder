@@ -20,3 +20,5 @@ c1*x1 + c2*x2 + ... + cn*xn = N
 (cが小さい)はbit DP で解ける
 https://atcoder.jp/contests/abc198/tasks/abc198_f
 https://atcoder.jp/contests/aising2020/tasks/aising2020_f
+
+2乗和最小化，絶対値最小化など
