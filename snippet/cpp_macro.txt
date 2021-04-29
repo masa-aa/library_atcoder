@@ -3,7 +3,7 @@ using namespace std;
 #define INCLUDED_MAIN_CPP
 #include __FILE__
 
-int main(){
+int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     cout << setprecision(20) << setiosflags(ios::fixed);
@@ -36,6 +36,7 @@ int main(){
 #include <set>
 #include <sstream>
 #include <stack>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -54,8 +55,8 @@ int main(){
 #define sum(...) accumulate(all(__VA_ARGS__), 0LL)
 #define bisect_left(arr, k) lower_bound(all(arr), (k)) - (arr).begin()
 #define bisect_right(arr, k) upper_bound(all(arr), (k)) - (arr).begin()
-#define uniq(arr)   \
-    sort(all(arr)); \
+#define uniq(arr)                                                                                                      \
+    sort(all(arr));                                                                                                    \
     arr.erase(unique(all(arr)), end(arr))
 
 using str = string;
@@ -67,15 +68,9 @@ using puu = pair<ui, ui>;
 using P = pair<int, int>;
 using vi = vector<int>;
 using vll = vector<long long>;
-template <typename T> T ceil(T a, T b) { return (a + b - 1) / b; };
-template <class T>
-vector<T> make_vec(size_t a){
-    return vector<T>(a);
-}
-template <class T, class... Ts>
-auto make_vec(size_t a, Ts... ts){
-    return vector<decltype(make_vec<T>(ts...))>(a, make_vec<T>(ts...));
-}
+template <typename T> T ceil(T a, T b) {
+    return (a + b - 1) / b;
+};
 
 // rep-------------------------------------------------------------------
 #define overload4(_1, _2, _3, _4, name, ...) name
@@ -141,19 +136,35 @@ struct input {
         return value;
     }
 };
-void scan(int &a) { cin >> a; }
-void scan(unsigned &a) { cin >> a; }
-void scan(long &a) { cin >> a; }
-void scan(long long &a) { cin >> a; }
-void scan(unsigned long long &a) { cin >> a; }
+void scan(int &a) {
+    cin >> a;
+}
+void scan(unsigned &a) {
+    cin >> a;
+}
+void scan(long &a) {
+    cin >> a;
+}
+void scan(long long &a) {
+    cin >> a;
+}
+void scan(unsigned long long &a) {
+    cin >> a;
+}
 void scan(char &a) {
     do {
         a = getchar();
     } while (a == ' ' || a == '\n');
 }
-void scan(float &a) { cin >> a; }
-void scan(double &a) { cin >> a; }
-void scan(long double &a) { cin >> a; }
+void scan(float &a) {
+    cin >> a;
+}
+void scan(double &a) {
+    cin >> a;
+}
+void scan(long double &a) {
+    cin >> a;
+}
 void scan(vector<bool> &a) {
     for (unsigned i = 0; i < a.size(); i++) {
         int b;
@@ -161,8 +172,12 @@ void scan(vector<bool> &a) {
         a[i] = b;
     }
 }
-void scan(char a[]) { cin >> a; }
-void scan(string &a) { cin >> a; }
+void scan(char a[]) {
+    cin >> a;
+}
+void scan(string &a) {
+    cin >> a;
+}
 template <class T> void scan(vector<T> &);
 template <class T, size_t size> void scan(array<T, size> &);
 template <class T, class L> void scan(pair<T, L> &);
@@ -192,7 +207,9 @@ template <class T> void scan(set<T> &a, int n) {
         a.insert(input());
 }
 
-template <class T> void scan(T &a) { cin >> a; }
+template <class T> void scan(T &a) {
+    cin >> a;
+}
 template <class A, class B> ostream &operator<<(ostream &ost, const pair<A, B> &p) {
     ost << "{" << p.first << ", " << p.second << "}";
     return ost;
@@ -234,12 +251,20 @@ template <class T> ostream &operator<<(ostream &ost, const set<T> &v) {
     ost << "}";
     return ost;
 }
-template <class T> inline void print(const T &a) { cout << a << "\n"; }
+template <class T> inline void print(const T &a) {
+    cout << a << "\n";
+}
 template <class T, class... Ts> inline void print(const T &a, const Ts &...ts) {
     cout << a << " ";
     print(ts...);
 }
 // -----------------------------------------------------------------------
+template <class T> vector<T> vec(size_t a) {
+    return vector<T>(a);
+}
+template <class T, class... Ts> auto vec(size_t a, Ts... ts) {
+    return vector<decltype(vec<T>(ts...))>(a, vec<T>(ts...));
+}
 
 template <class T> inline bool chmax(T &a, T b) {
     if (a < b) {
@@ -255,8 +280,12 @@ template <class T> inline bool chmin(T &a, T b) {
     }
     return false;
 };
-template <class T> auto min(const T &a) { return *min_element(a.begin(), a.end()); }
-template <class T> auto max(const T &a) { return *max_element(a.begin(), a.end()); }
+template <class T> auto min(const T &a) {
+    return *min_element(a.begin(), a.end());
+}
+template <class T> auto max(const T &a) {
+    return *max_element(a.begin(), a.end());
+}
 template <class T> ll intpow(T a, T b) {
     ll ans = 1;
     while (b) {
@@ -280,7 +309,7 @@ template <class T> ll modpow(T a, T b, T p) {
 template <typename A> A nlcm(vector<A> a) {
     A res;
     res = a[0];
-    for (ll i = 1; i < (ll)a.size(); i++) {
+    for (ll i = 1; i < a.size(); i++) {
         res = lcm(res, a[i]);
     }
     return res;
@@ -288,10 +317,38 @@ template <typename A> A nlcm(vector<A> a) {
 template <typename A> A ngcd(vector<A> a) {
     A res;
     res = a[0];
-    for (ll i = 1; i < (ll)a.size() && res != 1; i++) {
+    for (ll i = 1; i < a.size() && res != 1; i++) {
         res = gcd(a[i], res);
     }
     return res;
+}
+int popcount(int n) {
+    return __builtin_popcount(n);
+}
+int popcount(ll n) {
+    return __builtin_popcountll(n);
+}
+template <typename T> int bit_length(T n) {
+    int k = 0;
+    while (n) {
+        k++;
+        n /= 2;
+    }
+    return k;
+}
+template <typename A> A isqrt(A n) {
+    A a = 0, r = 0;
+    for (A s = bit_length(n) - (bit_length(n) % 2 ? 1 : 2); s >= 0; s -= 2) {
+        A t = ((n >> s) & 3);
+        r = ((r << 2) | t);
+        A c = ((a << 2) | 1);
+        int b = (r >= c);
+        if (b) {
+            r -= c;
+        }
+        a = ((a << 1) | b);
+    }
+    return a;
 }
 
 const int INF = INT_MAX;
