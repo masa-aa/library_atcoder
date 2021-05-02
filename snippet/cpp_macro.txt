@@ -49,8 +49,9 @@ int main() {
 #define Sort(x) sort((x).begin(), (x).end())
 #define Reverse(x) reverse((x).begin(), (x).end())
 #define len(x) (ll) x.size()
-#define en '\n'
 #define pb emplace_back
+#define append emplace_back
+
 #define elif else if
 #define sum(...) accumulate(all(__VA_ARGS__), 0LL)
 #define bisect_left(arr, k) lower_bound(all(arr), (k)) - (arr).begin()
@@ -68,9 +69,6 @@ using puu = pair<ui, ui>;
 using P = pair<int, int>;
 using vi = vector<int>;
 using vll = vector<long long>;
-template <typename T> T ceil(T a, T b) {
-    return (a + b - 1) / b;
-};
 
 // rep-------------------------------------------------------------------
 #define overload4(_1, _2, _3, _4, name, ...) name
@@ -259,12 +257,16 @@ template <class T, class... Ts> inline void print(const T &a, const Ts &...ts) {
     print(ts...);
 }
 // -----------------------------------------------------------------------
+// 関数群
 template <class T> vector<T> vec(size_t a) {
     return vector<T>(a);
 }
 template <class T, class... Ts> auto vec(size_t a, Ts... ts) {
     return vector<decltype(vec<T>(ts...))>(a, vec<T>(ts...));
 }
+template <typename T> T ceil(T a, T b) {
+    return (a + b - 1) / b;
+};
 
 template <class T> inline bool chmax(T &a, T b) {
     if (a < b) {
@@ -306,18 +308,18 @@ template <class T> ll modpow(T a, T b, T p) {
     }
     return ans;
 }
-template <typename A> A nlcm(vector<A> a) {
+template <typename A> A nlcm(vector<A> &a) {
     A res;
     res = a[0];
-    for (ll i = 1; i < a.size(); i++) {
+    for (int i = 1; i < a.size(); i++) {
         res = lcm(res, a[i]);
     }
     return res;
 }
-template <typename A> A ngcd(vector<A> a) {
+template <typename A> A ngcd(vector<A> &a) {
     A res;
     res = a[0];
-    for (ll i = 1; i < a.size() && res != 1; i++) {
+    for (int i = 1; i < a.size() && res != 1; i++) {
         res = gcd(a[i], res);
     }
     return res;
@@ -351,7 +353,55 @@ template <typename A> A isqrt(A n) {
     return a;
 }
 
+template <typename T> int count(vector<T> &a, T k) {
+    int res = 0;
+    for (T val : a)
+        if (val == k)
+            res++;
+    return res;
+}
+
+int count(string &s, char &k) {
+    int res = 0;
+    for (char val : s)
+        if (val == k)
+            res++;
+    return res;
+}
+
+int count(string &s, string &k) {
+    int res = 0, n = len(k);
+    for (int i = 0; i < len(s) - n + 1; i++)
+        if (k == s.substr(i, n)) {
+            res++;
+            i += n - 1;
+        }
+    return res;
+}
+
+template <typename T> map<T, int> Counter(vector<T> &a) {
+    map<T, int> mp;
+    for (T val : a)
+        mp[val]++;
+    return mp;
+}
+template <typename S, typename T> vector<T> values(map<S, T> &mp) {
+    int n = mp.size(), i = 0;
+    vector<T> res(n);
+    for (auto [itm, val] : mp)
+        res[i++] = val;
+    return res;
+}
+template <typename S, typename T> vector<S> items(map<S, T> &mp) {
+    int n = mp.size(), i = 0;
+    vector<S> res(n);
+    for (auto [itm, val] : mp)
+        res[i++] = itm;
+    return res;
+}
+
 const int INF = INT_MAX;
 // const ll mod = 1000000007;
 const double PI = acos(-1.0);
+
 #endif
