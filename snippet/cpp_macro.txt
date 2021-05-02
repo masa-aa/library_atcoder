@@ -4,9 +4,6 @@ using namespace std;
 #include __FILE__
 
 int main() {
-    cin.tie(nullptr);
-    ios::sync_with_stdio(false);
-    cout << setprecision(20) << setiosflags(ios::fixed);
 }
 
 #else
@@ -84,6 +81,14 @@ using vll = vector<long long>;
 // ----------------------------------------------------------------------
 
 // 入出力-----------------------------------------------------------------
+struct Ioinitializer {
+    Ioinitializer() noexcept {
+        cin.tie(nullptr);
+        ios::sync_with_stdio(false);
+        cout << setprecision(20) << setiosflags(ios::fixed);
+    }
+} Ioinitializer;
+
 struct input {
     input(){};
     operator int() {
@@ -308,7 +313,7 @@ template <class T> ll modpow(T a, T b, T p) {
     }
     return ans;
 }
-template <typename A> A nlcm(vector<A> &a) {
+template <typename A> A nlcm(const vector<A> &a) {
     A res;
     res = a[0];
     for (int i = 1; i < a.size(); i++) {
@@ -316,7 +321,7 @@ template <typename A> A nlcm(vector<A> &a) {
     }
     return res;
 }
-template <typename A> A ngcd(vector<A> &a) {
+template <typename A> A ngcd(const vector<A> &a) {
     A res;
     res = a[0];
     for (int i = 1; i < a.size() && res != 1; i++) {
@@ -353,7 +358,7 @@ template <typename A> A isqrt(A n) {
     return a;
 }
 
-template <typename T> int count(vector<T> &a, T k) {
+template <typename T> int count(const vector<T> &a, const T k) {
     int res = 0;
     for (T val : a)
         if (val == k)
@@ -361,7 +366,7 @@ template <typename T> int count(vector<T> &a, T k) {
     return res;
 }
 
-int count(string &s, char &k) {
+int count(const string &s, const char &k) {
     int res = 0;
     for (char val : s)
         if (val == k)
@@ -369,7 +374,7 @@ int count(string &s, char &k) {
     return res;
 }
 
-int count(string &s, string &k) {
+int count(const string &s, const string &k) {
     int res = 0, n = len(k);
     for (int i = 0; i < len(s) - n + 1; i++)
         if (k == s.substr(i, n)) {
@@ -379,20 +384,20 @@ int count(string &s, string &k) {
     return res;
 }
 
-template <typename T> map<T, int> Counter(vector<T> &a) {
+template <typename T> map<T, int> Counter(const vector<T> &a) {
     map<T, int> mp;
     for (T val : a)
         mp[val]++;
     return mp;
 }
-template <typename S, typename T> vector<T> values(map<S, T> &mp) {
+template <typename S, typename T> vector<T> values(const map<S, T> &mp) {
     int n = mp.size(), i = 0;
     vector<T> res(n);
     for (auto [itm, val] : mp)
         res[i++] = val;
     return res;
 }
-template <typename S, typename T> vector<S> items(map<S, T> &mp) {
+template <typename S, typename T> vector<S> items(const map<S, T> &mp) {
     int n = mp.size(), i = 0;
     vector<S> res(n);
     for (auto [itm, val] : mp)
