@@ -39,8 +39,8 @@ int main() {
 #include <utility>
 
 #pragma GCC optimize("O3")
-#pragma GCC target("avx2")
-#pragma GCC optimize("unroll-loops")
+// #pragma GCC target("avx2")
+// #pragma GCC optimize("unroll-loops")
 #define all(x) (x).begin(), (x).end()
 #define reall(a) (a).rbegin(), (a).rend()
 #define Sort(x) sort((x).begin(), (x).end())
@@ -48,6 +48,11 @@ int main() {
 #define len(x) (ll) x.size()
 #define pb emplace_back
 #define append emplace_back
+#define str(x) to_string(x)
+#define INT(x) stoi(x)
+#define ll(x) stoll(x)
+#define DOUBLE(x) stod(x)
+#define ld(x) stold(x)
 
 #define elif else if
 #define sum(...) accumulate(all(__VA_ARGS__), 0LL)
@@ -357,6 +362,18 @@ template <typename A> A isqrt(A n) {
     }
     return a;
 }
+template <typename T> T add(T a, T b) {
+    T res;
+    if (a < 0 && b < 0)
+        return __builtin_add_overflow(a, b, &res) ? numeric_limits<T>::min() : res;
+    return __builtin_add_overflow(a, b, &res) ? numeric_limits<T>::max() : res;
+}
+template <typename T> T mul(T a, T b) {
+    T res;
+    if ((a < 0 and b > 0) or (a > 0 and b < 0))
+        return __builtin_mul_overflow(a, b, &res) ? numeric_limits<T>::min() : res;
+    return __builtin_mul_overflow(a, b, &res) ? numeric_limits<T>::max() : res;
+}
 
 template <typename T> int count(const vector<T> &a, const T k) {
     int res = 0;
@@ -397,7 +414,7 @@ template <typename S, typename T> vector<T> values(const map<S, T> &mp) {
         res[i++] = val;
     return res;
 }
-template <typename S, typename T> vector<S> items(const map<S, T> &mp) {
+template <typename S, typename T> vector<S> keys(const map<S, T> &mp) {
     int n = mp.size(), i = 0;
     vector<S> res(n);
     for (auto [itm, val] : mp)
@@ -405,7 +422,7 @@ template <typename S, typename T> vector<S> items(const map<S, T> &mp) {
     return res;
 }
 
-const int INF = INT_MAX;
+// const int INF = INT_MAX;
 // const ll mod = 1000000007;
 const double PI = acos(-1.0);
 
