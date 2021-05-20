@@ -5,14 +5,12 @@ def RLE(s):
         return []
     rle = []
     pre = s[0]
-    cnt = 1
     for c in s[1:]:
         if c == pre:
-            cnt += 1
+            continue
         else:
             rle.append(pre)
             pre = c
-            cnt = 1
     rle.append(pre)
     return rle
 
