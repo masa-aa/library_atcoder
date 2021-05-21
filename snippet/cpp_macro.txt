@@ -274,8 +274,19 @@ template <class T> vector<T> vec(size_t a) {
 template <class T, class... Ts> auto vec(size_t a, Ts... ts) {
     return vector<decltype(vec<T>(ts...))>(a, vec<T>(ts...));
 }
+template <typename T> T floor(T a, T b) {
+    if (b < 0) {
+        a = -a;
+        b = -b;
+    }
+    return a >= 0 ? a / b : (a - b + 1) / b;
+};
 template <typename T> T ceil(T a, T b) {
-    return (a + b - 1) / b;
+    if (b < 0) {
+        a = -a;
+        b = -b;
+    }
+    return a >= 0 ? (a + b - 1) / b : a / b;
 };
 
 template <class T> inline bool chmax(T &a, T b) {

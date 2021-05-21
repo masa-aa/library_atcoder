@@ -1,3 +1,4 @@
+# どうせなら二部グラフ判定とかunionfindを用いた自動振り分けとかあると便利そう
 import sys
 sys.setrecursionlimit(10000000)
 
