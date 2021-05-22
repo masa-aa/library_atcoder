@@ -2,13 +2,12 @@ class LowestCommonAncestor:
     """ <O(Nlog(N)), O(1)> """
     __slots__ = ["n", "tour", "depth_list", "id", "sparse_table", "log"]
 
-    def __init__(self, G: "隣接リスト", root: "根", parents):
-        from collections import deque
+    def __init__(self, G: "隣接リスト", root: "根"):
         self.n = len(G)
         self.tour = [0] * (2 * self.n - 1)
         self.depth_list = [0] * (2 * self.n - 1)
         self.id = [-1] * self.n
-        self.dfs(G, root, parents)
+        self.dfs(G, root)
         self._rmq_init(self.depth_list)
 
     def _rmq_init(self, array):
@@ -35,13 +34,14 @@ class LowestCommonAncestor:
         first, second = s[l], s[r - (1 << b)]
         return first if self.depth_list[first] < self.depth_list[second] else second
 
-    def dfs(self, G, root, parents):
+    def dfs(self, G, root):
         """ 非再帰で深さ優先探索を行う """
         id = self.id
         tour = self.tour
         depth_list = self.depth_list
         v = root
         it = [0] * self.n
+        parents = [-1] * self.n
         visit_id = 0
         depth = 0
         while v != -1:
@@ -63,11 +63,13 @@ class LowestCommonAncestor:
                     continue
                 else:
                     child = g[it[v]]
+                    parents[child] = v
                     it[v] += 1
                     v = child
                     depth += 1
             else:
                 child = g[it[v]]
+                parents[child] = v
                 it[v] += 1
                 v = child
                 depth += 1
