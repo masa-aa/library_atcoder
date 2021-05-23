@@ -3,6 +3,8 @@ from array import array
 
 
 class RangeCountQueryCompressed:
+    """N = len(arr) としたとき 0<=a[i]<N"""
+
     def __init__(self, arr):
         self.size = max(arr) + 1
         self.depth = [array("i") for _ in range(self.size)]
@@ -10,10 +12,12 @@ class RangeCountQueryCompressed:
             self.depth[e].append(i)
 
     def count(self, l, r, x):
+        """l <= k < r におけるa[k]=xの個数"""
         if x >= self.size:
             return 0
-        s = bisect_left(self.depth[x], l)
-        t = bisect_left(self.depth[x], r, s)
+        a = self.depth[x]
+        s = bisect_left(a, l)
+        t = bisect_left(a, r, s)
         return t - s
 
 
@@ -24,12 +28,14 @@ from collections import defaultdict
 
 class RangeCountQuery:
     def __init__(self, arr):
-        self.size = max(arr) + 1
         self.depth = defaultdict(list)
         for i, e in enumerate(arr):
             self.depth[e].append(i)
 
     def count(self, l, r, x):
-        s = bisect_left(self.depth[x], l)
-        t = bisect_left(self.depth[x], r, s)
+        """l <= k < r におけるa[k]=xの個数"""
+        a = self.depth[x]
+        s = bisect_left(a, l)
+        t = bisect_left(a, r, s)
         return t - s
+
