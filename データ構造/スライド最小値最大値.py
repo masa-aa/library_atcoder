@@ -9,7 +9,7 @@ class SlidingMinimumElement:
         self.que = deque()
 
     def min(self, l: int, r: int):
-        """ min(a[l:r]),l,rはクエリに関して単調増加"""
+        """ min(a[l:r]), l,rはクエリに関して単調増加"""
         a = self.a
         que = self.que
         for i in range(self.right, r):
@@ -37,7 +37,7 @@ class SlidingMaximumElement:
         self.que = deque()
 
     def max(self, l: int, r: int):
-        """ min(a[l:r]) """
+        """ max(a[l:r]) l,rはクエリに関して単調増加"""
         a = self.a
         que = self.que
         for i in range(self.right, r):
