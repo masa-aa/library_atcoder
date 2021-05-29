@@ -65,6 +65,9 @@ class vector:
 
     def ort(self):
         """象限"""
+        # 座標軸上 を初めに除く
+        if not (self.x and self.y):
+            return 0
         if self.y > 0:
             return 1 if self.x > 0 else 2
         return 3 if self.x < 0 else 4
