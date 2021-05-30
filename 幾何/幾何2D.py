@@ -73,25 +73,25 @@ class vector:
         return 3 if self.x < 0 else 4
 
 
-def is_parallel(P, Q):
+def is_parallel(P: vector, Q: vector):
     """2つのベクトルP, Qが平行かどうか"""
 
     return P.cross(Q) == 0
 
 
-def is_orthogonal(P, Q):
+def is_orthogonal(P: vector, Q: vector):
     """2つのベクトルP, Qが垂直かどうか"""
     return P @ Q == 0
 
 
-def same_line(a, b, c, d):
+def same_line(a: int or float, b: int or float, c: int or float, d: int or float):
     """2つの線分(a, b), (c, d)が同一直線かどうか"""
     if not is_parallel(vector(a) - vector(b), vector(c) - vector(d)):
         return False
     return (a[0] - b[0]) * (c[1] - a[1]) == (a[1] - b[1]) * (c[0] - a[0])
 
 
-def is_cross(a, b, c, d):
+def is_cross(a: int or float, b: int or float, c: int or float, d: int or float):
     """2つの線分(a, b), (c, d)が交差するかどうか"""
     if same_line(a, b, c, d):
         if a[0] == b[0]:
@@ -116,7 +116,7 @@ def is_cross(a, b, c, d):
     return True
 
 
-def mid_point(p1, p2):
+def mid_point(p1: tuple, p2: tuple):
     '''
     中点を返す。
     '''
@@ -124,10 +124,10 @@ def mid_point(p1, p2):
     x2, y2 = p2
     x = (x1 + x2) / 2
     y = (y1 + y2) / 2
-    return (x,y)
+    return (x, y)
 
 
-def is_collinear(p1,p2,p3):
+def is_collinear(p1: tuple, p2: tuple, p3: tuple):
     '''
     3点が同一直線上にあるかどうか。
     '''
@@ -137,25 +137,16 @@ def is_collinear(p1,p2,p3):
     return (x1 - x2) * (y3 - y2) == (y1 - y2) * (x3 - x2)
 
 
-def is_parallel(v1, v2):
+def get_vector(p1: int or float, p2: int or float):
     '''
-    2つのベクトルが直線が平行かどうか。
-    '''
-    x1, y1 = v1
-    x2, y2 = v2
-    return x1 * y2 == y1 * x2
-
-
-def get_vector(p1, p2):
-    '''
-    2点 p1, p2 に対し、ベクトル p2p1 を返す。
+    2点 p1, p2 に対し、ベクトル p1 -> p2 を返す。
     '''
     vx = p2[0] - p1[0]
     vy = p2[1] - p1[1]
     return (vx, vy)
 
 
-def get_intersection(l1, l2):
+def get_intersection(l1: tuple, l2: tuple):
     '''
     2直線、l1, l2 の交点を返す。
     交点がない場合（共有点が無数にある場合も含む）は None を返す。
@@ -171,10 +162,11 @@ def get_intersection(l1, l2):
     c, d = l2[0]
     w, x = get_vector(*l2)
 
-    s = ((a-c)*v - (b-d)*u) / (w*v - x*u)
-    return (c+s*w, d+s*x)
+    s = ((a - c) * v - (b - d) * u) / (w * v - x * u)
+    return (c + s * w, d + s * x)
 
-def get_perpendicular_bisector(p1,p2):
+
+def get_perpendicular_bisector(p1: tuple, p2: tuple):
     '''
     p1, p2 を両端とする線分の、垂直二等分線を返す。
     '''
@@ -183,15 +175,15 @@ def get_perpendicular_bisector(p1,p2):
     m = mid_point(p1, p2)
     a, b = get_vector(p1, p2)
     v = (-b, a)
-    p = (m[0]+v[0], m[1]+v[1])
+    p = (m[0] + v[0], m[1] + v[1])
     return (m, p)
 
 
-def get_circumcenter(p1,p2,p3):
+def get_circumcenter(p1: tuple, p2: tuple, p3: tuple):
     '''
-    外心が存在すれば返す。
+    3点p1, p2, p3を頂点とする三角形の外心が存在すれば返す。
     '''
-    if is_collinear(p1,p2,p3):
+    if is_collinear(p1, p2, p3):
         return None
     l1 = get_perpendicular_bisector(p1, p2)
     l2 = get_perpendicular_bisector(p2, p3)
