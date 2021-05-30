@@ -92,3 +92,4 @@ def is_cross(a, b, c, d):
     if s * t > 0:
         return False
     return True
+
