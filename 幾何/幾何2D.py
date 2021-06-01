@@ -1,3 +1,6 @@
+from math import sqrt
+
+
 class vector:
     def __init__(self, *P):
         self.x, self.y = P
@@ -48,6 +51,11 @@ class vector:
         self.y //= k
         return self
 
+    def __truediv__(self, k):
+        self.x /= k
+        self.y /= k
+        return self
+
     def __iter__(self):
         yield self.x
         yield self.y
@@ -71,6 +79,14 @@ class vector:
         if self.y > 0:
             return 1 if self.x > 0 else 2
         return 3 if self.x < 0 else 4
+
+    def square_norm(self):
+        """ベクトルの長さの2乗"""
+        return self.x * self.x + self.y * self.y
+
+    def norm(self):
+        """ベクトルの長さ"""
+        return sqrt(self.x * self.x + self.y * self.y)
 
 
 def is_parallel(P: vector, Q: vector):
@@ -137,13 +153,19 @@ def is_collinear(p1: tuple, p2: tuple, p3: tuple):
     return (x1 - x2) * (y3 - y2) == (y1 - y2) * (x3 - x2)
 
 
-def get_vector(p1: int or float, p2: int or float):
+def get_vector(p1: tuple, p2: tuple):
     '''
     2点 p1, p2 に対し、ベクトル p1 -> p2 を返す。
     '''
     vx = p2[0] - p1[0]
     vy = p2[1] - p1[1]
     return (vx, vy)
+
+
+def is_parallel_line(P: tuple, Q: tuple):
+    """2つの直線P, Qが平行かどうか"""
+
+    return P[0] * Q[1] - P[1] * Q[0] == 0
 
 
 def get_intersection(l1: tuple, l2: tuple):
@@ -155,7 +177,7 @@ def get_intersection(l1: tuple, l2: tuple):
     '''
     v1 = get_vector(*l1)
     v2 = get_vector(*l2)
-    if is_parallel(v1, v2):
+    if is_parallel_line(v1, v2):
         return None
     a, b = l1[0]
     u, v = get_vector(*l1)
@@ -179,7 +201,7 @@ def get_perpendicular_bisector(p1: tuple, p2: tuple):
     return (m, p)
 
 
-def get_circumcenter(p1: tuple, p2: tuple, p3: tuple):
+def get_circumcenter(p1: tuple, p2: tuple, p3: tuple) -> tuple:
     '''
     3点p1, p2, p3を頂点とする三角形の外心が存在すれば返す。
     '''
