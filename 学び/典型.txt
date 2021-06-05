@@ -22,3 +22,10 @@ https://atcoder.jp/contests/abc198/tasks/abc198_f
 https://atcoder.jp/contests/aising2020/tasks/aising2020_f
 
 2乗和最小化，絶対値最小化など
+
+親方向の部分木の個数 = n - 1 - (子方向の部分木の個数)
+https://atcoder.jp/contests/arc028/tasks/arc028_3
+
+木上のいもす
+「ある頂点の子孫でない頂点に x を足す」 = 「根の子孫に x を足す」+「ある頂点の子孫に x を足す」
+https://atcoder.jp/contests/abc187/tasks/abc187_e
