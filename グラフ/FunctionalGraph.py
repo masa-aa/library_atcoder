@@ -1,4 +1,4 @@
-class RhoGraph:
+class FunctionalGraph:
     def __init__(self, x: int, f: "map"):
         """
         写像 f:[l, r] -> [l, r]
