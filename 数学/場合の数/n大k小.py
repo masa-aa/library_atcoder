@@ -1,5 +1,10 @@
 def comb(n, k, mod=1_000_000_007):
     """nCk (nが大きくてkが小さい) O(k+log(mod)), n < kで0を返す"""
+    if n < k or n < 0 or k < 0:
+        return 0
+
+    if n - k < k:
+        k = n - k
     ans = 1
     inv = 1
     for i in range(1, k + 1):
