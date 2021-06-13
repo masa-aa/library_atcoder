@@ -14,17 +14,13 @@ def table():
 
 
 def comb(n, k):
-    if n < k:
-        return 0
-    if n < 0 or k < 0:
+    if n < k or n < 0 or k < 0:
         return 0
     return fac[n] * finv[k] % mod * finv[n - k] % mod
 
 
 def perm(n, k):
-    if n < k:
-        return 0
-    if n < 0 or k < 0:
+    if n < k or n < 0 or k < 0:
         return 0
     return fac[n] * finv[n - k] % mod
 
