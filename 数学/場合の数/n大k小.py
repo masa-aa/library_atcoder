@@ -1,5 +1,6 @@
 def comb(n, k, mod=1_000_000_007):
     """nCk (nが大きくてkが小さい) O(k+log(mod)), n < kで0を返す"""
+    # comment：引数のmodを消してグローバルに置くと最適化で速くなると思う．
     if n < k or n < 0 or k < 0:
         return 0
 
