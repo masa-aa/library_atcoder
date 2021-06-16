@@ -100,14 +100,14 @@ def is_orthogonal(P: vector, Q: vector):
     return P @ Q == 0
 
 
-def same_line(a: int or float, b: int or float, c: int or float, d: int or float):
+def same_line(a: tuple, b: tuple, c: tuple, d: tuple):
     """2つの線分(a, b), (c, d)が同一直線かどうか"""
-    if not is_parallel(vector(a) - vector(b), vector(c) - vector(d)):
+    if not is_parallel(vector(*a) - vector(*b), vector(*c) - vector(*d)):
         return False
     return (a[0] - b[0]) * (c[1] - a[1]) == (a[1] - b[1]) * (c[0] - a[0])
 
 
-def is_cross(a: int or float, b: int or float, c: int or float, d: int or float):
+def is_cross(a: tuple, b: tuple, c: tuple, d: tuple):
     """2つの線分(a, b), (c, d)が交差するかどうか"""
     if same_line(a, b, c, d):
         if a[0] == b[0]:
