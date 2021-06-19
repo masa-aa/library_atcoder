@@ -55,7 +55,11 @@ class UnionFind:
 
     def group_count(self):
         """連結成分の数"""
-        return len(self.roots())
+        res = 0
+        for i in self.root:
+            if i < 0:
+                res += 1
+        return res
 
     def all_group_members(self):
         """{ルート要素: [そのグループに含まれる要素のリスト], ...}の辞書を返す"""
