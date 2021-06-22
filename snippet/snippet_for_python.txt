@@ -6,13 +6,6 @@
 		],
 		"description": "intinputする"
 	},
-	"for": {
-		"prefix": "for",
-		"body": [
-			"for i in range(${1:}):"
-		],
-		"description": "for文"
-	},
 	"mapinput": {
 		"prefix": "mai",
 		"body": [
@@ -28,18 +21,11 @@
 		"description": "listinputする"
 	},
 	"input": {
-		"prefix": "input()",
+		"prefix": "input",
 		"body": [
 			"input()"
 		],
 		"description": "inputする"
-	},
-	"print": {
-		"prefix": "print",
-		"body": [
-			"print(${1:})"
-		],
-		"description": "print"
 	},
 	"ma": {
 		"prefix": "omazinai",
@@ -53,9 +39,7 @@
 	"lim": {
 		"prefix": "lim",
 		"body": [
-			"import sys",
 			"sys.setrecursionlimit(10000000)",
-			"input = sys.stdin.readline"
 		],
 		"description": "再帰するとき"
 	},
@@ -67,7 +51,7 @@
 	"heapq": {
 		"prefix": "heapq",
 		"body": [
-			"from heapq import heappush,heapify,heappop"
+			"from heapq import heappush, heapify, heappop"
 		],
 		"description": "優先度付きキュー"
 	},
@@ -130,7 +114,7 @@
 		"body": [
 			"print('{:.15f}'.format(${1:})) # 小数第15桁まで表示"
 		],
-		"description": "ソートのkeyを指定"
+		"description": "小数第15桁まで表示"
 	},
 	"lru_cache": {
 		"prefix": "lru_cache",
@@ -329,5 +313,30 @@
 		"prefix": "continue",
 		"body": "continue",
 		"description": "continue"
+	},
+	"clamp": {
+		"prefix": "clamp",
+		"body": "def clamp(v: int, low: int = None, high: int = None) -> int:\r\n    \"\"\"vの値を範囲[low, high]に収める.\"\"\"\r\n    if low != None:\r\n        v = max(v, low)\r\n    if high != None:\r\n        v = min(v, high)\r\n    return v\r\n\r\n",
+		"description": "vの値を範囲[low, high]に収める."
+	},
+	"sep": {
+		"prefix": "sep",
+		"body": "sep=\"\\n\"",
+		"description": "sep"
+	},
+	"mod100000007": {
+		"prefix": "mod1000000007",
+		"body": "1_000_000_007",
+		"description": "mod"
+	},
+	"tuplemai": {
+		"prefix": "tuplemai",
+		"body": "tuple(map(int, input().split()))",
+		"description": "tuple入力"
+	},
+	"mod998244353": {
+		"prefix": "mod998244353",
+		"body": "998_244_353",
+		"description": "mod998244353"
 	}
 }
