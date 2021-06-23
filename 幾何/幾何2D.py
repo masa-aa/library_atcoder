@@ -210,3 +210,5 @@ def get_circumcenter(p1: tuple, p2: tuple, p3: tuple) -> tuple:
     l1 = get_perpendicular_bisector(p1, p2)
     l2 = get_perpendicular_bisector(p2, p3)
     return get_intersection(l1, l2)
+
+# 外積を使うと多角形の面積が求まる（外積/2)
