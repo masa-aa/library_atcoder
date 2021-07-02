@@ -321,7 +321,7 @@ template <class T> ll intpow(T a, T b) {
 }
 template <class T> ll modpow(T a, T b, T p) {
     ll ans = p == 1 ? 0 : 1;
-    ll s = a;
+    ll s = a % p;
     while (b) {
         if (b & 1)
             (ans *= s) %= p;
