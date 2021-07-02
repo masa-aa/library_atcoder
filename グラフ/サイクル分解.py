@@ -4,7 +4,7 @@ class CycleDecomposition:
     def __init__(self, rho: list, one_base=True):
         """
         rho : 置換を与えるリスト(コピーは生成しないので値が変わるのに注意)
-        1-indexedかどうか
+        one_base : 1-indexedかどうか
         """
         n = len(rho)
         if one_base:
@@ -39,3 +39,16 @@ class CycleDecomposition:
         size = len(self.cycle[cycle_num])
         k += self.index[x]
         return self.cycle[cycle_num][k % size] + self.one_base
+
+    def show(self):
+        import networkx as nx
+        import matplotlib.pyplot as plt
+
+        g = nx.DiGraph()
+        for v in self.cycle:
+            for i in range(len(v)):
+                j = i + 1 if i < len(v) - 1 else 0
+                g.add_edge(v[i] + self.one_base, v[j] + self.one_base)
+        pos = nx.spring_layout(g, k=0.7)
+        nx.draw_networkx(g, pos, with_labels=True, alpha=0.8)
+        plt.show()
