@@ -22,9 +22,7 @@ class CumulativeSum2DDestroy:
                 cur[j], now = cur[j] + prev[j] + now, now + cur[j]
 
     def sum(self, a, b, x, y):
-        """sum(a, b, x, y) = [a, b) * [x, y)の和(面積)"""
-        b -= 1
-        y -= 1
+        """sum(a, b, x, y) = [a, b] * [x, y]の和(面積)"""
         if a > b or x > y:
             return 0
         if a == 0 and x == 0:
