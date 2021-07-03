@@ -35,3 +35,5 @@ class CumulativeSum2D:
 # c = [list(map(int, input().split())) for i in range(h)]
 # cum = cum_gen(h, w, c)
 # print(cum_calc(1, 1, 1, 1))
+
+# 破壊的なものを作ろう
