@@ -4,6 +4,7 @@ using namespace std;
 #include __FILE__
 
 int main() {
+
 }
 
 #else
@@ -18,6 +19,9 @@ int main() {
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tag_and_trait.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 #include <fstream>
 #include <functional>
 #include <iomanip>
@@ -37,6 +41,7 @@ int main() {
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+using namespace __gnu_pbds;
 
 // #pragma GCC optimize("O3")
 // #pragma GCC target("avx2")
@@ -71,7 +76,13 @@ using puu = pair<ui, ui>;
 using P = pair<int, int>;
 using vi = vector<int>;
 using vll = vector<long long>;
-
+template <typename T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename S, typename T>
+using ordered_dict = tree<S, T, less<S>, rb_tree_tag, tree_order_statistics_node_update>;
+/*
+var_name.find_by_order(k) でk番目（0-indexed）のiteratorを返す．
+var_name.order_of_key(key) でkey以上の最初の要素が、treeの中で何番目か返す．
+*/
 // rep-------------------------------------------------------------------
 #define overload4(_1, _2, _3, _4, name, ...) name
 #define overload3(_1, _2, _3, name, ...) name
