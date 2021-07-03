@@ -1,4 +1,4 @@
-class CumulativeSum2D:
+class CumulativeSum2DDestroy:
     def __init__(self, c):
         """
         O(hw)
@@ -8,18 +8,23 @@ class CumulativeSum2D:
         # c[0] = []の時注意
         h = len(c)
         w = len(c[0])
-        self.cum = [[0] * w for i in range(h)]
-        self.cum[0][0] = c[0][0]
+        self.cum = c
+        cur = c[0]
         for j in range(1, w):
-            self.cum[0][j] = self.cum[0][j - 1] + c[0][j]
+            cur[j] += cur[j - 1]
+
         for i in range(1, h):
-            now = 0
-            for j in range(w):
-                now += c[i][j]
-                self.cum[i][j] += self.cum[i - 1][j] + now
+            prev = c[i - 1]
+            cur = c[i]
+            now = cur[0]
+            cur[0] += prev[0]
+            for j in range(1, w):
+                cur[j], now = cur[j] + prev[j] + now, now + cur[j]
 
     def sum(self, a, b, x, y):
-        """sum(a, b, x, y) = [a, b] * [x, y]の和(面積)"""
+        """sum(a, b, x, y) = [a, b) * [x, y)の和(面積)"""
+        b -= 1
+        y -= 1
         if a > b or x > y:
             return 0
         if a == 0 and x == 0:
@@ -30,8 +35,4 @@ class CumulativeSum2D:
             return self.cum[b][y] - self.cum[a - 1][y]
         return self.cum[b][y] - self.cum[b][x - 1] - self.cum[a - 1][y] + self.cum[a - 1][x - 1]
 
-
-# h, w = map(int, input().split())
-# c = [list(map(int, input().split())) for i in range(h)]
-# cum = cum_gen(h, w, c)
-# print(cum_calc(1, 1, 1, 1))
+# なんか遅いなあ
