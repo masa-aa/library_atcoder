@@ -14,3 +14,4 @@ def compress(arr):
     com = {e: i for i, e in enumerate(rcom)}
     for i in range(len(arr)):
         arr[i] = com[arr[i]]
+    return arr
