@@ -6,7 +6,7 @@ def dot(A: "Matrix", B: "Matrix"):
         for j in range(L):
             s = 0
             for k in range(M):
-                s = (s + A[i][k] * B[k][j]) % mod
+                s += A[i][k] * B[k][j]
             res[i][j] = s
     return res
 
@@ -32,8 +32,4 @@ def dot_matvec(A: "Matrix", v: list):
     for i in range(N):
         for j in range(M):
             res[i] += A[i][j] * v[j]
-            res[i] %= mod
     return res
-
-
-mod = 1000000007  # 設定する
