@@ -4,11 +4,11 @@ def merge_sort(a: list) -> None:
     while m < n:
         m2 = m + m
         for i in range(n // m2):
-            s = a[i * m2:i * m2 + m]
-            t = a[i * m2 + m:(i + 1) * m2]
-            k = i * m2
+            im2 = i * m2
+            s = a[im2:im2 + m]
+            t = a[im2 + m:im2 + m2]
             s_idx = t_idx = 0
-            for k in range(i * m2, (i + 1) * m2):
+            for k in range(im2, im2 + m2):
                 if t_idx == m:
                     a[k] = s[s_idx]
                     s_idx += 1

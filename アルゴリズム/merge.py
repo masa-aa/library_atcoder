@@ -1,23 +1,17 @@
-def merge(a, b):
+def merge(a: list, b: list) -> list:
     """sort列 a, b の sorted(a + b)と等価なものをO(N + M)でする"""
-    n, m = len(a), len(b)
-    c = [0] * (n + m)
-    j, k = 0, 0
-    for i in range(n + m):
-        if k == m:
-            for i in range(i, n + m):
-                c[i] = a[j]
-                j += 1
-            break
-        elif j == n:
-            for i in range(i, n + m):
-                c[i] = b[k]
-                k += 1
-            break
-        elif a[j] <= b[k]:
-            c[i] = a[j]
+    p = len(a)
+    q = len(b)
+    s = [0] * (p + q)
+    i = j = 0
+    for k in range(p + q):
+        if i == p:
+            s[k] = b[j]
             j += 1
+        elif j == q or a[i] < b[j]:
+            s[k] = a[i]
+            i += 1
         else:
-            c[i] = b[k]
-            k += 1
-    return c
+            s[k] = b[j]
+            j += 1
+    return s
