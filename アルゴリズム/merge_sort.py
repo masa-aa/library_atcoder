@@ -12,7 +12,7 @@ def merge_sort(a: list) -> None:
                 if t_idx == m:
                     a[k] = s[s_idx]
                     s_idx += 1
-                elif s_idx == m or t[t_idx] < s[s_idx]:
+                elif s_idx == m or t[t_idx] < s[s_idx]:  # 比較
                     a[k] = t[t_idx]
                     t_idx += 1
                 else:
@@ -29,7 +29,7 @@ def merge_sort(a: list) -> None:
                 if t_idx == t_size:
                     a[k] = s[s_idx]
                     s_idx += 1
-                elif s_idx == m or t[t_idx] < s[s_idx]:
+                elif s_idx == m or t[t_idx] < s[s_idx]:  # 比較
                     a[k] = t[t_idx]
                     t_idx += 1
                 else:
