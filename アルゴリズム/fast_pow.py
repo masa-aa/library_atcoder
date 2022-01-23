@@ -1,7 +1,7 @@
 mod = 998_244_353
 
 
-def fast_pow(a: int, k: int):
+def fast_pow(a: int, k: int) -> int:
     """
         a^k % mod
         modをglobalに取って高速化
