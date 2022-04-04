@@ -107,7 +107,7 @@ class StronglyConnectedComponents:
 
 
 def offline_directed_graph_reachability(input_graph, queries):
-    """queries[i] = (u, v), u -> v に到達可能かを答える"""
+    """queries[i] = (u, v), u -> v に到達可能かを答える O((N+M)*Q/buff_size)くらい"""
     n = len(input_graph)
     scc = StronglyConnectedComponents(n)
     for i in range(n):
