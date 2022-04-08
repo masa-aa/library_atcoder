@@ -31,7 +31,7 @@ def offline_dag_reachability(graph, queries):
     q = len(queries)
     order = topological_sort(graph)
     ans = [0] * q
-    buff_size = 62
+    buff_size = int(30 * n**.5) + 1 if n < 10000 else int(9.79945024e-07 * n * n + 2.89160389e-02 * n + 1.37712405e+03) + 1
 
     for l in range(0, q, buff_size):
         r = min(q, l + buff_size)
