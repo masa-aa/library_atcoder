@@ -46,17 +46,18 @@ class SegmentTree:
     def prod(self, l, r):
         """op(a[l], ..., a[r - 1])"""
         l += self.size; r += self.size
-        s = self.e
+        sl = self.e
+        sr = self.e
         while l < r:
             if r & 1:
                 r -= 1
-                s = self.op(s, self.seg[r])
+                sr = self.op(self.seg[r], sr)
             if l & 1:
-                s = self.op(s, self.seg[l])
+                sl = self.op(sl, self.seg[l])
                 l += 1
             l >>= 1
             r >>= 1
-        return s
+        return self.op(sl, sr)
 
     def all_prod(self):
         return self.seg[1]
