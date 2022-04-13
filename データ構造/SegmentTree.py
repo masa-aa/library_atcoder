@@ -1,86 +1,89 @@
-class SegmentTree:
-    def __init__(self, init: int or list, op, e):
-        """
-        init : int か list
-        op : min, +, *, xor, gcd など
-        e : 単位元(min:inf, 和:0, 積:1, xor:0, gcd:0)
-        """
-        self.op = op
-        self.e = e
+class BinaryIndexedTree:
+    def __init__(self, init: int or list):
         if isinstance(init, int):
-            self.size = 1 << (init - 1).bit_length()
-            self.seg = [e] * (2 * self.size)
             self.n = init
+            self.tree = [0] * (init + 1)
+            self.depth = init.bit_length() - 1
         else:
-            self.n = n = len(init)
-            self.size = 1 << (n - 1).bit_length()
-            self.seg = [e] * (2 * self.size)
-            seg = self.seg
+            self.n = len(init)
+            self.tree = [0] * (self.n + 1)
+            self.depth = self.n.bit_length() - 1
             for i, e in enumerate(init):
-                seg[i + self.size] = e
-            for i in range(self.size - 1, 0, -1):
-                seg[i] = op(seg[2 * i], seg[2 * i + 1])
+                self.tree[i] += e
+                j = i | (i + 1)
+                if j < self.n:
+                    self.tree[j] += self.tree[i]
 
-    def __getitem__(self, k):
-        """ 
-            seg[k] -> seg の k 番目を返す．O(1)
-            seg[l, r] -> op(seg[l], seg[l + 1], ... ,seg[r - 1]) を返す．O(log(n))
-        """
-        if isinstance(k, int):
-            return self.seg[k + self.size]
-        l, r = k
-        return self.prod(l, r)
+    def sum(self, i: int) -> int:
+        """ 区間[0,i) の総和を求める """
+        s = 0
+        i -= 1
+        while i >= 0:
+            s += self.tree[i]
+            i = (i & (i + 1)) - 1
+        return s
 
-    def __setitem__(self, k, x):
-        return self.set(k, x)
+    def add(self, i: int, x: int) -> None:
+        """ i 番目の要素に x を足す """
+        while i < self.n:
+            self.tree[i] += x
+            i |= i + 1
 
-    def set(self, k, x):
-        """k番目の要素の値をxに変更"""
-        k += self.size
-        seg = self.seg
-        seg[k] = x
-        while k > 1:
-            k >>= 1
-            seg[k] = self.op(seg[2 * k], seg[2 * k + 1])
+    def get(self, i: int, j: int) -> int:
+        """ 部分区間和 [i, j) """
+        if i == 0:
+            return self.sum(j)
+        return self.sum(j) - self.sum(i)
 
-    def prod(self, l, r):
-        """op(a[l], ..., a[r - 1])"""
-        l += self.size; r += self.size
-        sl = self.e
-        sr = self.e
-        while l < r:
-            if r & 1:
-                r -= 1
-                sr = self.op(self.seg[r], sr)
-            if l & 1:
-                sl = self.op(sl, self.seg[l])
-                l += 1
-            l >>= 1
-            r >>= 1
-        return self.op(sl, sr)
+    def lower_bound(self, x: int, equal: bool = False) -> tuple:
+        """ (a0+a1+...+ai < x となる最大の i, その時の a0+a1+...+ai )
+             a0+a1+...+ai <= x としたい場合は equal = True
+             二分探索であるため、ai>=0 を満たす必要がある"""
+        sum_ = 0
+        pos = -1    # 1-indexed の時は pos = 0
+        if not equal:
+            for i in range(self.depth, -1, -1):
+                k = pos + (1 << i)
+                if k < self.n and sum_ + self.tree[k] < x:  # 1-indexed の時は k <= self.n
+                    sum_ += self.tree[k]
+                    pos += 1 << i
+        if equal:
+            for i in range(self.depth, -1, -1):
+                k = pos + (1 << i)
+                if k < self.n and sum_ + self.tree[k] <= x:  # 1-indexed の時は k <= self.n
+                    sum_ += self.tree[k]
+                    pos += 1 << i
+        return pos, sum_
 
-    def all_prod(self):
-        return self.seg[1]
+    def __getitem__(self, i: int) -> int:
+        return self.get(i, i + 1)
 
-    def update(self, k, x):
-        """k番目の要素の値をop(seg[k], x)に更新"""
-        self.set(k, self.op(self[k], x))
-
-    def debug(self):
-        n = len(self.seg).bit_length()
-        res = []
-        k = 1
-        for _ in range(1, n + 1):
-            res.append(" ".join(map(str, self.seg[k:2 * k])))
-            k *= 2
-        k //= 2
-        print("-" * k)
-        print("\n".join(res))
-        print("-" * k)
+    def __setitem__(self, k: int, x: int) -> None:
+        self.add(k, x - self[k])
 
     def __iter__(self):
+        """ [a0, a1, a2, ...] """
         for i in range(self.n):
-            yield self[i]
+            yield self.get(i, i + 1)
 
-    def __repr__(self):
-        return " ".join(map(str, self))
+    def __str__(self):
+        text1 = " ".join(["element:            "] + list(map(str, self)))
+        text2 = " ".join(["cumsum(1-indexed):  "] + list(str(self.sum(i)) for i in range(1, self.n + 1)))
+        return "\n".join((text1, text2))
+
+
+import sys
+input = sys.stdin.readline
+
+n, q = map(int, input().split())
+b = BinaryIndexedTree(list(map(int, input().split())))
+
+res = []
+for _ in range(q):
+    query, x, y = map(int, input().split())
+    if query:
+        res.append(b.get(x, y))
+    else:
+        b[x] += y
+
+print(*res, sep="\n")
