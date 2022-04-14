@@ -1,9 +1,11 @@
 from collections import deque
 
 
-def topological_sort(es):
+def longest_path(es):
+    """DAGの各頂点で終わるlongetst pathの長さ"""
     V = len(es)
     deg = [0] * V
+    dp = [0] * V  # dp[i] = 頂点iで終わる最長のpathの長さ
     for i in range(V):
         for e in es[i]:
             deg[e] += 1
@@ -11,16 +13,15 @@ def topological_sort(es):
     for i, deg_i in enumerate(deg):
         if deg_i == 0:
             d.append(i)
-    order = []
+
     while d:
         v = d.popleft()
-        order.append(v)
         for i in es[v]:
             deg[i] -= 1
             if deg[i] == 0:
                 d.append(i)
-
-    return order
+                dp[i] = dp[v] + 1
+    return dp
 
 
 import sys

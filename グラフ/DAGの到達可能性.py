@@ -3,12 +3,10 @@ from collections import deque
 
 def topological_sort(es):
     V = len(es)
-    _es = [[] for _ in range(V)]
     deg = [0] * V
     for i in range(V):
         for e in es[i]:
-            _es[e].append(i)
-            deg[i] += 1
+            deg[e] += 1
     d = deque()
     for i, deg_i in enumerate(deg):
         if deg_i == 0:
@@ -17,11 +15,11 @@ def topological_sort(es):
     while d:
         v = d.popleft()
         order.append(v)
-        for i in _es[v]:
+        for i in es[v]:
             deg[i] -= 1
             if deg[i] == 0:
                 d.append(i)
-    order.reverse()
+
     return order
 
 
