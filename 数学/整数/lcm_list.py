@@ -21,21 +21,19 @@ class factorization:
             n //= self.min_factor[n]
         return d
 
-    def count_divisors(self, n):
-        res = 1
-        for v in self.__call__(n).values():
-            res *= v + 1
-        return res
 
-    def sum_divisors(self, n):
-        res = 1
-        for r, Len in self.__call__(n).items():
-            res *= (r ** (Len + 1) - 1) // (r - 1)
-        return res
+def lcm_list(a: list, m: int = -1):
+    """aのlcmを素数リストで返す（O(nlog(m)), m = max(a) + 1"""
+    if m == -1:
+        m = max(a) + 1
 
-    def Eulers_function(self, n):
-        res = 1
-        for i in self.__call__(n):
-            res *= (i - 1)
-            n //= i
-        return res * n
+    fact = factorization(m)
+    res = {}
+    for i in a:
+        for k, x in fact(i).items():
+            if k not in res:
+                res[k] = x
+            else:
+                res[k] = max(res[k], x)
+
+    return res
