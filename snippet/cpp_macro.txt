@@ -1,10 +1,8 @@
-using namespace std;
 #ifndef INCLUDED_MAIN_CPP
 #define INCLUDED_MAIN_CPP
 #include __FILE__
 
 int main() {
-
 }
 
 #else
@@ -42,8 +40,9 @@ int main() {
 #include <unordered_set>
 #include <utility>
 using namespace __gnu_pbds;
+using namespace std;
 
-// #pragma GCC optimize("O3")
+#pragma GCC optimize("O3")
 // #pragma GCC target("avx2")
 // #pragma GCC optimize("unroll-loops")
 #define all(x) (x).begin(), (x).end()
@@ -53,7 +52,7 @@ using namespace __gnu_pbds;
 #define len(x) (ll) x.size()
 #define pb emplace_back
 #define append emplace_back
-#define str(x) to_string(x)
+#define STR(x) to_string(x)
 #define INT(x) stoi(x)
 #define ll(x) stoll(x)
 #define DOUBLE(x) stod(x)
@@ -61,8 +60,8 @@ using namespace __gnu_pbds;
 
 #define elif else if
 #define sum(...) accumulate(all(__VA_ARGS__), 0LL)
-#define bisect_left(arr, k) lower_bound(all(arr), (k)) - (arr).begin()
-#define bisect_right(arr, k) upper_bound(all(arr), (k)) - (arr).begin()
+// #define bisect_left(arr, k) lower_bound(all(arr), (k)) - (arr).begin()
+// #define bisect_right(arr, k) upper_bound(all(arr), (k)) - (arr).begin()
 #define uniq(arr)                                                                                                      \
     sort(all(arr));                                                                                                    \
     arr.erase(unique(all(arr)), end(arr))
@@ -76,7 +75,8 @@ using puu = pair<ui, ui>;
 using P = pair<int, int>;
 using vi = vector<int>;
 using vll = vector<long long>;
-template <typename T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+// template <typename T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag,
+// tree_order_statistics_node_update>;
 template <typename S, typename T>
 using ordered_dict = tree<S, T, less<S>, rb_tree_tag, tree_order_statistics_node_update>;
 /*
@@ -88,7 +88,7 @@ var_name.order_of_key(key) でkey以上の最初の要素が、treeの中で何�
 #define overload3(_1, _2, _3, name, ...) name
 #define rep1(i, n) for (ll i = 0; i < n; ++i)
 #define rep2(i, a, b) for (ll i = a; i < b; ++i)
-#define rep3(i, a, b, c) for (ll i = a, _bb = b; (a <= i && i < _bb) or (a >= i && i > _bb); i += c)
+#define rep3(i, a, b, c) for (ll i = a, _bb = b; (c > 0 && i < _bb) || (c < 0 && i > _bb); i += c)
 #define rep(...) overload4(__VA_ARGS__, rep3, rep2, rep1)(__VA_ARGS__)
 #define each1(i, a) for (auto &&i : a)
 #define each2(x, y, a) for (auto &&[x, y] : a)
@@ -270,12 +270,70 @@ template <class T> ostream &operator<<(ostream &ost, const set<T> &v) {
     ost << "}";
     return ost;
 }
+template <class T> ostream &operator<<(ostream &ost, const multiset<T> &v) {
+    bool k = false;
+    ost << "[";
+    for (auto p : v) {
+        if (k) {
+            ost << ", ";
+            k = true;
+        }
+        ost << p;
+        k = true;
+    }
+    ost << "]";
+    return ost;
+}
 template <class T> inline void print(const T &a) {
     cout << a << "\n";
 }
 template <class T, class... Ts> inline void print(const T &a, const Ts &...ts) {
     cout << a << " ";
     print(ts...);
+}
+template <class T> inline void print_vec(const vector<T> &a, bool debug = false) {
+    for (unsigned i = 0; i < a.size(); ++i) {
+        if (debug)
+            cout << "[";
+        if (i) {
+            if (debug)
+                cout << ", ";
+            else
+                cout << " ";
+        }
+        cout << a[i];
+    }
+    if (debug)
+        cout << "]\n";
+    else
+        cout << "\n";
+}
+template <class T> inline void print_vec(const vector<vector<T>> &a, bool debug = false) {
+    int n = a.size();
+    if (n == 0) {
+        if (debug)
+            print("[[]]");
+        else
+            print("");
+        return;
+    }
+    for (int i = 0; i < n; ++i) {
+        if (debug)
+            cout << "[";
+        for (unsigned j = 0; j < a[i].size(); ++j) {
+            if (j) {
+                if (debug)
+                    cout << ", ";
+                else
+                    cout << " ";
+            }
+            cout << a[i][j];
+        }
+        if (debug)
+            cout << "]\n";
+        else
+            cout << "\n";
+    }
 }
 // -----------------------------------------------------------------------
 // 関数群
@@ -291,14 +349,14 @@ template <typename T> T floor(T a, T b) {
         b = -b;
     }
     return a >= 0 ? a / b : (a - b + 1) / b;
-};
+}
 template <typename T> T ceil(T a, T b) {
     if (b < 0) {
         a = -a;
         b = -b;
     }
     return a >= 0 ? (a + b - 1) / b : a / b;
-};
+}
 
 template <class T> inline bool chmax(T &a, T b) {
     if (a < b) {
@@ -306,42 +364,42 @@ template <class T> inline bool chmax(T &a, T b) {
         return true;
     }
     return false;
-};
+}
 template <class T> inline bool chmin(T &a, T b) {
     if (a > b) {
         a = b;
         return true;
     }
     return false;
-};
+}
 template <class T> auto min(const T &a) {
     return *min_element(a.begin(), a.end());
 }
 template <class T> auto max(const T &a) {
     return *max_element(a.begin(), a.end());
 }
-template <class T> ll intpow(T a, T b) {
-    ll ans = 1;
+template <class ll> long long intpow(ll a, ll b) {
+    long long ans = 1;
     while (b) {
         if (b & 1)
             ans *= a;
         a *= a;
-        b /= 2;
+        b >>= 1;
     }
     return ans;
 }
-template <class T> ll modpow(T a, T b, T p) {
-    ll ans = p == 1 ? 0 : 1;
-    ll s = a % p;
+long long modpow(ll a, ll b, ll p) {
+    long long ans = p == 1 ? 0 : 1;
+    long long s = a % p;
     while (b) {
         if (b & 1)
             (ans *= s) %= p;
         (s *= s) %= p;
-        b /= 2;
+        b >>= 1;
     }
     return ans;
 }
-template <typename A> A nlcm(const vector<A> &a) {
+template <typename A> A lcm(const vector<A> &a) {
     A res;
     res = a[0];
     for (int i = 1; i < a.size(); i++) {
@@ -349,7 +407,7 @@ template <typename A> A nlcm(const vector<A> &a) {
     }
     return res;
 }
-template <typename A> A ngcd(const vector<A> &a) {
+template <typename A> A gcd(const vector<A> &a) {
     A res;
     res = a[0];
     for (int i = 1; i < a.size() && res != 1; i++) {
@@ -445,7 +503,7 @@ template <typename S, typename T> vector<S> keys(const map<S, T> &mp) {
     return res;
 }
 
-// const int INF = INT_MAX;
+const int INF = INT_MAX >> 1;
 // const ll mod = 1000000007;
 const double PI = acos(-1.0);
 

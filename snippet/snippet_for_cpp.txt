@@ -67,15 +67,6 @@
 		],
 		"description": "do...while ループに対するコード スニペット"
 	},
-	"else": {
-		"prefix": "else",
-		"body": [
-			"else {",
-			"\t${0:}",
-			"}"
-		],
-		"description": "else ステートメントに対するコード スニペット"
-	},
 	"enum": {
 		"prefix": "enum",
 		"body": [
@@ -250,8 +241,13 @@
 	"cout": {
 		"prefix": "cout",
 		"body": [
-			"cout << ${1:index} << en;"
+			"cout << ${1:index} << endl;"
 		],
 		"description": "coutに対するコード スニペット"
+	},
+	"input": {
+		"prefix": "input()",
+		"body": "input()",
+		"description": "input"
 	}
 }
