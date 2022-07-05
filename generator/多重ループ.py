@@ -7,7 +7,7 @@ def multiple_loops(loops: list):
     loop_count = 1
     for i in loops:
         loop_count *= i
-    if 0 in loops:
+    if loop_count == 0:
         return
     yield tuple(d)
     for _ in range(loop_count - 1):

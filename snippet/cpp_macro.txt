@@ -86,10 +86,11 @@ var_name.order_of_key(key) でkey以上の最初の要素が、treeの中で何�
 // rep-------------------------------------------------------------------
 #define overload4(_1, _2, _3, _4, name, ...) name
 #define overload3(_1, _2, _3, name, ...) name
-#define rep1(i, n) for (ll i = 0; i < n; ++i)
-#define rep2(i, a, b) for (ll i = a; i < b; ++i)
-#define rep3(i, a, b, c) for (ll i = a, _bb = b; (c > 0 && i < _bb) || (c < 0 && i > _bb); i += c)
-#define rep(...) overload4(__VA_ARGS__, rep3, rep2, rep1)(__VA_ARGS__)
+#define rep1(n) for (ll tukacchadame = 0; tukacchadame < n; ++tukacchadame)
+#define rep2(i, n) for (ll i = 0; i < n; ++i)
+#define rep3(i, a, b) for (ll i = a; i < b; ++i)
+#define rep4(i, a, b, c) for (ll i = a, _bb = b; (c > 0 && i < _bb) || (c < 0 && i > _bb); i += c)
+#define rep(...) overload4(__VA_ARGS__, rep4, rep3, rep2, rep1)(__VA_ARGS__)
 #define each1(i, a) for (auto &&i : a)
 #define each2(x, y, a) for (auto &&[x, y] : a)
 #define each3(x, y, z, a) for (auto &&[x, y, z] : a)
