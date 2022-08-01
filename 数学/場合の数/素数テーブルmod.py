@@ -8,7 +8,7 @@ def table():
     for i in range(2, table_size):
         fac[i] = fac[i - 1] * i % mod
         div = mod // i
-        inv[i] = mod - inv[mod - i * div] * div % mod
+        inv[i] = -inv[mod - i * div] * div % mod
         finv[i] = finv[i - 1] * inv[i] % mod
     return fac, finv
 
